@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html, body {
+  background: #000;
+  color: #e8ebef;
+  font-feature-settings: "tnum", "ss01";
+}
+
+body {
+  background:
+    radial-gradient(1200px 600px at 85% -10%, rgba(255,92,0,0.10), transparent 60%),
+    radial-gradient(900px 500px at -5% 110%, rgba(239,58,43,0.08), transparent 60%),
+    #000;
+  min-height: 100vh;
+}
+
+::selection { background: rgba(255,92,0,0.35); color: #fff; }
+
+/* Subtle scrollbar in dark theme */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: #08090b; }
+::-webkit-scrollbar-thumb { background: #1d2025; border-radius: 999px; }
+::-webkit-scrollbar-thumb:hover { background: #2a2e35; }
+
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.animate-marquee { animation: marquee 90s linear infinite; }
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.35; }
+}
+.animate-pulse-dot { animation: pulse-dot 1.6s ease-in-out infinite; }
+
+.tabular { font-variant-numeric: tabular-nums; }

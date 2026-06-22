@@ -1,0 +1,158 @@
+{
+  "dayKey": "2026-05-09",
+  "asOfLocal": "Sat, May 9 2026 — WEEKLY ANALYSIS · portfolio inception",
+  "author": "claude (chat) · weekly",
+  "summary": "INCEPTION WEEK. Portfolio reset to $20k on 2026-05-09. Regime is squarely risk-on: SPY +9.5% above 200d, VIX neutral at 18.1, QQQ leading SPY by 7.3% on 90d. The 'reigning' picture continued from prior weeks — AI Compute (NVDA/AVGO/MRVL/TSM) leads the 1–3mo horizon, Datacenters & Hyperscale leads the 4–12mo horizon. Notable this week: parabolic exhaustion clustering hard on the AI silicon names — INTC RSI 85 (+25.4% 1d), MU RSI 84 (+37.7% 1d, z +3.4σ), AAON z +4.3σ (most extended in the universe at +49.2% 1d). The parabolic-veto rules force these to HOLD even though their factor scores would qualify for BUY. Meanwhile, defense-AI continues to capitulate — LDOS -12.8% today, NOC -3.3%, KTOS deep in the red — telling a clear rotation story: dollars leaving one AI exposure (defense software/primes) and concentrating in another (AI compute silicon). Crypto sleeve is OFF naturally (BTC not yet above 200d AND positive 3m return condition). 24 BUY / 43 HOLD / 8 SELL — pretty close to last analysis (25/41/9), most action this week was in the magnitude of moves, not the verdicts.",
+  "tickers": {
+    "TSM": {
+      "verdict": "BUY",
+      "headline": "Foundry monopoly · M-leader · cleanest high-conviction long.",
+      "narrative": "Edge 78, 30d Sharpe z +1.4σ, in the reigning AI Compute medium-term theme. RSI 64 (room), trend score 88, golden cross intact. Only +3.5% 1d so didn't ride the squeeze higher — that's actually a GOOD sign because it means TSM has further to run while INTC/MU need to cool off. Analyst tgt only +1% — quants love it, Wall St has digested it. Hold as the cornerstone semiconductor position."
+    },
+    "NVDA": {
+      "verdict": "BUY",
+      "headline": "Only ticker in BOTH reigning chains. Analyst tgt +26%.",
+      "narrative": "Sits in BOTH M-leader AND L-leader chains. +8.4% 1d, +17% 1m, RSI 66 (not exhausted), 30d Sharpe z +1.3σ entering favorable territory. Analyst target implies +26% upside despite the run. The 1y regime z is -0.7σ — the 2023 ridiculous run set a high bar that this past year has been pedestrian against. That divergence still says 'fresh leg.' Core position."
+    },
+    "AVGO": {
+      "verdict": "BUY",
+      "headline": "Custom-silicon kingmaker · 30d Sharpe z +2.1σ.",
+      "narrative": "30d Sharpe z +2.1σ (top 2.5% of own 5y regimes). +21% 1m, in both reigning chains. Today's move was modest (+2.1%) — like TSM, AVGO didn't squeeze, which is the right rhythm. Custom AI silicon for hyperscalers (Google TPU, Meta MTIA). Target upside +5% so Wall St has caught up; trade is right but size DOWN, not up."
+    },
+    "MRVL": {
+      "verdict": "BUY",
+      "headline": "Highest momentum score in universe; tgt -28% disagrees.",
+      "narrative": "Momentum score 100, 30d Sharpe z +2.4σ. +42% 1m. Today modest +3.1% — momentum still intact but cooling. Custom-ASIC + optical interconnect. Wall Street target sits 28% BELOW current — consensus skepticism is loud. Position-size DOWN, trail-stop tight. If 30d z stays >+1.5σ next 2 weeks: thesis intact. If z cracks below +1σ: ring the register."
+    },
+    "INTC": {
+      "verdict": "HOLD",
+      "headline": "Most extreme reading on the dashboard. +25% TODAY.",
+      "narrative": "1m +102%, 30d Sharpe z +3.4σ. RSI 85 today after +25.4% 1d. The Intel Foundry thesis just woke up — but the price has woken up MORE. Parabolic-veto downgrades this from BUY to HOLD. Could rip another 20% or correct 30% from here. **Do not add.** If holding, trail-stop. Today's +25% spike is unsustainable on its own; watch for follow-through tomorrow or a -10% retrace to confirm."
+    },
+    "MU": {
+      "verdict": "HOLD",
+      "headline": "HBM monopoly · z +3.4σ · +38% TODAY. Don't chase.",
+      "narrative": "Today MU went absolutely vertical: +37.7% on 1d, z(50d) +3.4σ, RSI 84. HBM monopoly is real — every AI GPU is bottlenecked on HBM3e and Micron has US-listed pure-play status. But buying at +3.4σ extension has historically been a coin-flip on 30-day forward returns. Wait for a 5–10% pullback. The thesis isn't broken; the entry is bad."
+    },
+    "AAON": {
+      "verdict": "HOLD",
+      "headline": "z +4.3σ — MOST extended ticker on the dashboard. +49% TODAY.",
+      "narrative": "AAON went parabolic: +49.2% on the day, z(50d) +4.3σ — the single most statistically extended reading anywhere in the universe. RSI 82. Cooling thesis is real (HVAC for high-density datacenters) but entry at +4σ with no pullback is gambling, not investing. Mean-reversion priors are screaming. **Hard NO on buying here.** Watch for a -20-30% correction to revisit."
+    },
+    "AMD": {
+      "verdict": "HOLD",
+      "headline": "z +2.9σ · RSI 81 · joining the AI compute parade late.",
+      "narrative": "3m +118%. RSI 81, z50 +2.9σ. AMD is finally getting AI rotation flow (after lagging NVDA for two years). Joining late — could rip another 20% or correct 30%. In the parabolic-veto zone. If you already own it: trim 1/3. If you don't: wait for SMA20 retest."
+    },
+    "WDC": {
+      "verdict": "BUY",
+      "headline": "Top edge score 78 · 1y Sharpe z +2.3σ (structural shift).",
+      "narrative": "Storage benefitting from HBM demand spillover. Edge 78 (top of BUY list), 1y Sharpe z +2.3σ — the WHOLE YEAR is a rare regime for WDC, not just a month. Quants say structural breakout. Analyst target -29% — they haven't caught up. Trail-stop, don't anchor on consensus. RSI 76 — borderline but not vetoed."
+    },
+    "STX": {
+      "verdict": "HOLD",
+      "headline": "Same HBM-spillover thesis as WDC, more stretched.",
+      "narrative": "RSI 82, z50 +2.2σ. Same Seagate-storage thesis as WDC but more stretched (WDC RSI 76 vs STX 82). Today +7.7%. The thesis is intact; STX-specific entry is worse than WDC. If picking ONE: WDC."
+    },
+    "AMAT": {
+      "verdict": "BUY",
+      "headline": "WFE leader · 1y Sharpe z +1.7σ · quietly best regime in years.",
+      "narrative": "Wafer fab equipment — every advanced-node wafer touches AMAT's tools. Trend 89, 30d z +1.4σ, 1y z +1.7σ. Not in the headline reigning chain so rules give medium-conviction, but the data is saying this is the strongest regime in years. Underrated relative to the numbers."
+    },
+    "LRCX": {
+      "verdict": "BUY",
+      "headline": "Etch monopoly · 1y Sharpe z +2.2σ · clean structural breakout.",
+      "narrative": "Lam Research owns deposition + etch — picks-and-shovels of the AI chip stack. 1y Sharpe z +2.2σ is one of the cleanest structural breakouts in the WFE complex. Earnings revisions have been positive 4 quarters running. Top weight in the long-term strategies' portfolio (12.8%)."
+    },
+    "KLAC": {
+      "verdict": "BUY",
+      "headline": "Process-control monopoly · 1y Sharpe z +2.2σ.",
+      "narrative": "Metrology gear is the bottleneck for advanced-node yields. Same structural story as LRCX/AMAT but with the cleanest near-monopoly in its niche. Trend 80, 30d z +1.3σ. Entry remains reasonable (RSI 61)."
+    },
+    "MKSI": {
+      "verdict": "BUY",
+      "headline": "Top weight in long-term strategy (14.4%). Photonics + WFE.",
+      "narrative": "MKS Instruments — lasers + photonics + process gear. Highest weight in the long-term portfolio at 14.4%. Trend 89, 30d z +1.8σ. Cleaner entry than the parabolic semi names since it's at RSI 72 (not yet vetoed)."
+    },
+    "VRT": {
+      "verdict": "BUY",
+      "headline": "L-leader cooling/power play. 6 consecutive quarters of analyst beat.",
+      "narrative": "Vertiv — cooling/power layer for hyperscale. +18% 1m, +74% 3m, in the long-term reigning theme. Tgt -20% means Wall Street thinks it's stretched, but Vertiv has beat analysts 6 quarters running. Weight the 30d z (+1.0σ) over the static target."
+    },
+    "EQIX": {
+      "verdict": "BUY",
+      "headline": "TOP weight in medium-term strategy (21.3%) · L-leader REIT.",
+      "narrative": "Equinix is the headliner of the long-term reigning chain (Datacenters). The medium-term strategy allocates 21.3% here — its single largest position. Defensive AI exposure with dividend. Mid-cap risk profile. Lower vol than the silicon names — that's WHY it gets a big weight in the inverse-vol strategy."
+    },
+    "PWR": {
+      "verdict": "BUY",
+      "headline": "Utility build-out contractor riding grid scarcity.",
+      "narrative": "Quanta Services — utility build-out contractor. Mom 100, trend 87, +28% 1m. Grid-scarcity beneficiary. Sits in Power & Grid theme (which feeds Datacenters). Mid-cap solid balance sheet. RSI 72 — watch for short-term cool-off, but trend frame is intact."
+    },
+    "GFS": {
+      "verdict": "BUY",
+      "headline": "Most extreme regime reading on BUY list. +52% 1m.",
+      "narrative": "GlobalFoundries — mature/automotive nodes priced like leading-edge. sharpeZ30 +3.0σ, sharpeZ1y +2.9σ. Single most extreme regime reading on the BUY list. The thesis: 'mature nodes are the new bottleneck' is finally getting priced. Low-conviction tag because not in M-leader, but the numbers are screaming."
+    },
+    "LITE": {
+      "verdict": "BUY",
+      "headline": "Direct optical interconnect play · 8.0% in long-term portfolio.",
+      "narrative": "Lumentum — optical interconnect for AI rack-to-rack. In all three long-term strategies at 8.0% weight. Trend 79, RSI 58 (room to run), regime z +1.1σ. Cleaner entry than MRVL or MKSI for the same thematic exposure."
+    },
+    "UMC": {
+      "verdict": "HOLD",
+      "headline": "1y Sharpe z +3.9σ — extraordinary regime but RSI 80 says wait.",
+      "narrative": "United Microelectronics — mature foundry. 1y Sharpe z +3.9σ (extraordinary) but RSI 80 and z50 +2.6σ tip into parabolic-veto territory. Story is intact; entry is bad. Short-term portfolio (1m signal) has it as #2 weight (12.4%) — the short-term strategy is fine with chasing recent strength."
+    },
+    "LDOS": {
+      "verdict": "SELL",
+      "headline": "DOWN -12.8% TODAY · regime collapsed.",
+      "narrative": "Today's brutal print: -12.8% on the day. 1m -16%, 3m -33%. Trend score 17, momentum 0 (literally bottom of bucket). 30d Sharpe z -1.8σ (was -1.5σ last week — accelerating). Analyst target still +50% above current — classic 'knife falling, analysts haven't cut yet.' Avoid until trend score reclaims 50. Defense-AI rotation casualty."
+    },
+    "NOC": {
+      "verdict": "SELL",
+      "headline": "Bottom 2.5% regime · institutional bid is gone.",
+      "narrative": "Northrop Grumman: 30d Sharpe z -2.7σ (bottom 2.5% of own 5y), RSI 19. -3.3% today continuing the bleed. Analysts at +29% upside but the data says institutions have left. Don't try to catch this; wait for trend score >50 confirmation."
+    },
+    "KTOS": {
+      "verdict": "SELL",
+      "headline": "Worst defense reading: trend 11, mom 6.",
+      "narrative": "Kratos Defense — drones + targets. 3m -39%, mom score 6, trend 11 (the worst defense reading on the dashboard). The autonomous-warfare thesis is intact long-term; the 2026 trade isn't working. Defense-AI rotation casualty #3."
+    },
+    "BAH": {
+      "verdict": "SELL",
+      "headline": "Quiet 1y structural decline. Wait for reversal evidence.",
+      "narrative": "Booz Allen — 1y z -1.6σ. Defense-AI cluster getting taken out behind the woodshed. Trend score 24, momentum 27. -3.1% 1m. No catalyst on the horizon to flip the regime."
+    },
+    "IBM": {
+      "verdict": "SELL",
+      "headline": "Quantum optionality not showing in price action.",
+      "narrative": "Quantum-flavored tech name where neither AI compute nor quantum stories are showing in price. Trend score 27 — MACD negative, below SMAs. The 'quantum optionality' thesis isn't working tactically. Better quantum exposure via IONQ direct."
+    },
+    "HIMS": {
+      "verdict": "SELL",
+      "headline": "Failed breakout shape; GLP-1 thesis cooling.",
+      "narrative": "+43% 1m looks bullish, but trend 31, edge only 43. 30d z positive while 1y z negative — failed breakout shape. GLP-1 telehealth thesis cooling vs Lilly/Novo who own the molecules. Don't try to catch the squeeze."
+    },
+    "COIN": {
+      "verdict": "SELL",
+      "headline": "Decoupling from BTC strength. Operational leverage (miners) > venue.",
+      "narrative": "Coinbase decoupling from BTC strength. Miners (HUT/CLSK/RIOT) are BUY/HOLD; COIN is the only crypto-infra name in SELL. Tells you the crypto trade today is OPERATIONAL LEVERAGE (miners) > trading-volume venue (the exchange)."
+    },
+    "LEU": {
+      "verdict": "SELL",
+      "headline": "Nuclear laggard — possibly HALEU procurement timing issue.",
+      "narrative": "Centrus Energy — HALEU. SMR/CCJ/UEC are HOLDs but LEU's specific HALEU thesis hasn't rallied with the basket. Could be a rotation laggard or specific procurement-timing signal. Skip for nuclear exposure; pick CCJ or OKLO instead."
+    },
+    "IONQ": {
+      "verdict": "BUY",
+      "headline": "Quantum pure-play. Analyst tgt +39%.",
+      "narrative": "Pre-revenue, post-curiosity quantum. 30d Sharpe z +1.3σ + analyst tgt +39% + 1m +75%. Quantum is binary at this stage. Lottery-ticket sizing only — small position with full understanding of binary outcome."
+    },
+    "RIOT": {
+      "verdict": "HOLD",
+      "headline": "Crypto-miner squeeze: z +2.8σ, RSI 75.",
+      "narrative": "BTC miner — RIOT is on the parabolic-veto watchlist with z +2.8σ. Today +44% 1m. The crypto rally hasn't put BTC above its 200d yet (so the strategy's crypto sleeve is OFF), but miners are running anyway. Trim if you have it; don't add."
+    }
+  }
+}

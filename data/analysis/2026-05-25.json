@@ -1,0 +1,133 @@
+{
+  "dayKey": "2026-05-25",
+  "asOfLocal": "Mon, May 25 2026 — WEEKLY ANALYSIS · recovery week + rebalance day",
+  "author": "claude (chat) · weekly",
+  "summary": "RECOVERY WEEK. The May 19 distribution day was a one-off — market regenerated leadership cleanly. SELLs dropped 25 → 18, VIX cooled to 16.7 (-0.4σ), SPY back to +9.8% above 200d, QQQ retook tech leadership. PORTFOLIO RECOVERED from $1,057 → $1,144 (+$87, +8.3% off the May 19 low). Strategy auto-rebalanced TODAY (Monday May 25): MKSI and AMD re-added to the Sortino-weekly portfolio (they had been dropped last week); VRT and AAOI dropped. The override remains REMOVED — cash+gold sleeve held up well during last week's correction and continues to provide ballast. THEME RANKINGS: Foundries reigning BOTH horizons at heat 100 (fully aligned 'M+L' badge). Cybersecurity blew up to heat 100 medium-term — tied with Foundries at #1. Quantum had an extraordinary +44-48% one-day reversal (RGTI/QBTS/IONQ from May 19 lows). 24 BUY / 61 HOLD / 18 SELL. Only ONE high-conviction BUY left: TSM. CRWD/PANW remain SELL (parabolic veto) despite cybersecurity being the hottest theme — the theme is right, the entries are still broken. ACTION NEEDED for the user: trade today's rebalance — SELL VRT + AAOI, BUY MKSI + AMD.",
+  "tickers": {
+    "TSM": {
+      "verdict": "BUY",
+      "headline": "ONLY high-conviction BUY · edge 71 · the foundry monopoly stays the cleanest entry.",
+      "narrative": "Taiwan Semi is the lone high-conviction BUY this week. Edge 71, 30d Sharpe z +0.43σ (modest), 1m +5.7%, 1d flat. While most of the universe spiked today (Foundries theme +9.18%, Quantum +25.80%, AI Compute +10.52%), TSM stayed measured at +0.04%. That's the GOOD news — TSM didn't squeeze; it has room to run while the other Foundries names cool down. In the now-reigning Foundries theme (100/100 both horizons) AND the AI Compute beneficiary chain. Cleanest sustained-trend exposure."
+    },
+    "MKSI": {
+      "verdict": "BUY (medium)",
+      "headline": "RE-ADDED to Sortino-weekly today · top weight 14.18%.",
+      "narrative": "MKS Instruments dropped out of the Sortino top-8 last week (replaced by VRT) but re-claimed the #1 spot today. Photonics + WFE exposure. 1y Sharpe profile remains the strongest in the universe. ACTION: if following the strategy, BUY MKSI at $162 weighting (~14.2% of $1,144 portfolio value)."
+    },
+    "AMD": {
+      "verdict": "BUY (medium)",
+      "headline": "RE-ADDED today · edge 70 · 1d +10.24%.",
+      "narrative": "AMD spiked +10.24% today, +53.1% on 1m. 30d Sharpe z +1.90σ. Was dropped last week from the Sortino-weekly portfolio in favor of VRT, now back in at 10.25% weight. The AI Compute leadership is reasserting itself; AMD specifically benefits as NVDA's primary competitor. ACTION: BUY AMD at ~$117."
+    },
+    "GFS": {
+      "verdict": "BUY (medium)",
+      "headline": "edge 74 · 30d Sharpe z +2.69σ · +20.57% TODAY.",
+      "narrative": "GlobalFoundries up +20.57% on the day, edge 74, 30d Sharpe z +2.69σ (top 1% of own 5y regimes). 1m +39.2%. The mature-node-foundry-revaluation thesis is alive. Caution: today's +20.57% spike puts entry quality at risk. Wait for a -5 to -10% cool-off before adding fresh. If already long: hold."
+    },
+    "MU": {
+      "verdict": "BUY (medium)",
+      "headline": "Edge 82 (top edge in BUY bucket) · 1m +55.9%.",
+      "narrative": "Micron retook the top edge score (82) of all BUY candidates. 30d Sharpe z +1.81σ, 1m +55.9% (was +37.7% on May 9 then digested, now re-accelerating). The HBM monopoly thesis is intact and pricing in fresh capacity commitments from hyperscalers. RSI cooled from the May 9 spike — entry is cleaner than 2 weeks ago. Strategy holds 10.11% of portfolio in MU. If you've been waiting for an entry, this is acceptable."
+    },
+    "INTC": {
+      "verdict": "BUY (medium)",
+      "headline": "Foundries reigning · INTC edge 67 · still parabolic-veto-adjacent.",
+      "narrative": "Intel edge 67, 30d Sharpe z +2.02σ, +10.18% today on top of +79.5% 1m. The Foundry resurrection story IS playing out. But buying after +79% in 30 days is still entry-stretched. If you already hold (8.67% in the Sortino-weekly portfolio): keep. Adding fresh here is high risk/reward — wait for SMA20 retest."
+    },
+    "MRVL": {
+      "verdict": "BUY (medium)",
+      "headline": "Custom AI silicon · edge 72 · 30d Sharpe z +2.13σ.",
+      "narrative": "Marvell — custom ASIC + optical interconnect. +10.99% today, 1m +18.6%. Same parabolic-edge concern: don't chase the daily spike, but the 12m profile is strong. Not in your Sortino-weekly portfolio currently, but if you want one more position adjacent to it (using cash sleeve), MRVL is a reasonable add."
+    },
+    "AMAT": {
+      "verdict": "BUY (medium)",
+      "headline": "WFE picks-and-shovels · clean RSI · edge 69.",
+      "narrative": "Applied Materials — edge 69, 30d Sharpe z +0.32σ, -1.02% today. The 'didn't squeeze' name on the BUY list. Cleanest entry available among the WFE complex. Not in Sortino top-8 but a great candidate for capital allocation outside the strategy."
+    },
+    "WDC": {
+      "verdict": "BUY (medium)",
+      "headline": "Held in Sortino · edge 75 · steady accumulation.",
+      "narrative": "Western Digital — edge 75, 30d Sharpe z +1.38σ, 1m +20.1%. Held at 10.57% in the Sortino portfolio. The 'storage benefits from HBM spillover' thesis continues to compound. Calm, methodical — none of the parabolic markings of MU/INTC/AMD."
+    },
+    "CGNX": {
+      "verdict": "BUY (medium)",
+      "headline": "Machine vision · humanoid robotics adjacent · edge 68.",
+      "narrative": "Cognex — machine vision for industrial automation + robotics. Edge 68, 30d Sharpe z +1.49σ, 1m +22.2%. Not in Sortino top-8 but the humanoid robotics theme heat is building (57 medium-term, may rise). Worth watching."
+    },
+    "FOUNDRIES_THEME": {
+      "verdict": "BUY",
+      "headline": "DUAL-LEADER · heat 100/100 (M+L badge active).",
+      "narrative": "Foundries (GFS/INTC/TSM/UMC) lead BOTH medium AND long-term horizons at heat 100. The 'Aligned: medium AND long horizons agree' badge fires. This is the rarest and strongest signal the trend engine produces. Cleanest exposure: TSM for sustained leadership, GFS for higher-beta growth."
+    },
+    "CYBERSECURITY_THEME": {
+      "verdict": "BUY",
+      "headline": "Heat 100 medium-term · tied for #1 · but entries broken.",
+      "narrative": "Cybersecurity & Identity climbed from heat 97 → 100 medium-term in a week. The thesis (AI agents = exploding attack surface = demand for AI-native security) is fully validated. BUT all the high-quality entries are parabolic: CRWD RSI 87, PANW RSI 84, ZS triggered death cross + squeeze. THE PROBLEM: theme = right; price = late. Watch for NET (RSI 44 — cleanest entry) or wait for 10-15% pullback on CRWD/PANW."
+    },
+    "QUANTUM_THEME": {
+      "verdict": "HOLD",
+      "headline": "Heat 92 medium-term · explosive one-day reversal (+44-48% on RGTI/QBTS).",
+      "narrative": "After being CRUSHED last week (RGTI -16%, QBTS -17%), the quantum cluster had a SHOCK reversal today: RGTI +48%, QBTS +44.5%, IONQ +22.5%. This is pure sentiment whip — not new fundamentals. Theme heat jumped to 92. If you're long quantum: trail-stop tight (these are lottery tickets with multi-day mean reversion). If you're not: don't chase — wait to see if the new positive regime holds for 2-3 weeks."
+    },
+    "PANW": {
+      "verdict": "SELL (HIGH CONV)",
+      "headline": "Persistent parabolic exhaustion · RSI 84 · +7.31% today + 50.4% 1m.",
+      "narrative": "Palo Alto Networks remains a high-conviction SELL despite cybersecurity being the hottest theme. RSI 84, 1m +50%, at 52w-high zone. The theme is right; the price is wrong. If long: trim 1/3 to 1/2 here. If not: wait for SMA20 retest."
+    },
+    "CRWD": {
+      "verdict": "SELL (HIGH CONV)",
+      "headline": "Still parabolic · RSI 87 · +11.68% today + 49% 1m.",
+      "narrative": "CrowdStrike — same pattern as PANW, slightly hotter (RSI 87 vs 84). The May 19 +15.3% spike + today's +11.68% has compounded the extension. Take-profit pattern continues. Theme intact, entry broken."
+    },
+    "LDOS": {
+      "verdict": "SELL (medium)",
+      "headline": "Regime continues degrading · 30d Sharpe z -1.7σ · oversold but no reversal.",
+      "narrative": "Leidos — RSI 31 (technically oversold) but 30d Sharpe z still -1.7σ. The regime is broken, not bouncing. Defense-AI rotation casualty continues. -14.6% 1m. Avoid until trend score reclaims 35."
+    },
+    "VRT": {
+      "verdict": "REMOVED",
+      "headline": "DROPPED from Sortino-weekly today · 1-week tenure ends.",
+      "narrative": "Vertiv was added to the Sortino-weekly portfolio LAST Monday May 18 (replacing AMD/MKSI) but the strategy dropped it TODAY in favor of bringing MKSI and AMD back. The cooling theme cooled too much vs the AI compute revival. ACTION: if you bought VRT last week, SELL it as part of today's rebalance."
+    },
+    "AAOI": {
+      "verdict": "REMOVED",
+      "headline": "DROPPED from Sortino-weekly today · 1-week tenure ends.",
+      "narrative": "Applied Optoelectronics — small-cap optical interconnect. Also a 1-week-and-out story. The strategy preferred LITE for photonics exposure this week. ACTION: if you bought AAOI last week, SELL as part of today's rebalance."
+    },
+    "STX": {
+      "verdict": "HOLD",
+      "headline": "Storage held at 10.55% · the steady-eddy of the portfolio.",
+      "narrative": "Seagate — held position. The 'HBM spillover into storage' thesis continues quietly to work. Cooled from the May 9 parabolic spike. Hold."
+    },
+    "LITE": {
+      "verdict": "HOLD",
+      "headline": "Photonics anchor · 7.67% weight.",
+      "narrative": "Lumentum — only optical interconnect name still in the portfolio after AAOI got dropped. 1y Sharpe profile still strong. The photonics theme heat 83 medium-term, 89 long-term. Hold."
+    },
+    "RGTI": {
+      "verdict": "HOLD",
+      "headline": "+48% TODAY · z(50d) +3.77σ — most extended in universe.",
+      "narrative": "Rigetti went vertical today: +48.01% in a single session. z(50d) +3.77σ — most extended reading anywhere on the dashboard. RSI 71 (only borderline). This is a sentiment U-turn from last week's capitulation. Volatility is huge — anything can happen next session. Don't add here; if you held through the May 19 drop, take some off the table."
+    },
+    "QBTS": {
+      "verdict": "HOLD",
+      "headline": "+44.47% TODAY · same dynamic as RGTI.",
+      "narrative": "D-Wave +44.5% today, z +3σ. Same quantum-sentiment-spike dynamic. Lottery-ticket sizing — if you held it through the May 19 -17%, today recovers most of that loss. Don't add."
+    },
+    "ARM": {
+      "verdict": "HOLD",
+      "headline": "+46.54% TODAY · RSI 77 · earnings or news catalyst.",
+      "narrative": "ARM up +46.5% in a single session. z(50d) +2.82σ, RSI 77. This is a huge spike — likely earnings or licensing news. Not in the strategy's portfolio. If you don't already own it, do not chase here."
+    },
+    "BITF": {
+      "verdict": "HOLD",
+      "headline": "-54.90% TODAY · the lone disaster.",
+      "narrative": "Bitfarms collapsed -54.9% in a single session. Reasons unclear (possibly dilution, regulatory, or specific bad news). Not in the strategy. Just noting this for awareness — when one ticker drops 55% in a session with the rest of crypto only -4%, that's idiosyncratic and warrants investigation before catching the knife."
+    },
+    "PORTFOLIO_UPDATE": {
+      "verdict": "BUY",
+      "headline": "Today's auto-rebalance: SELL VRT+AAOI, BUY MKSI+AMD.",
+      "narrative": "If you're following the Sortino-weekly strategy: TODAY (Monday May 25) is a rebalance day. The strategy dropped VRT and AAOI (added last week) and re-added MKSI ($162, top weight) and AMD ($117). ACTION REQUIRED if actually following: sell VRT, sell AAOI, buy MKSI, buy AMD. Cash 10% and Gold 5% sleeves remain in place (override stays removed)."
+    }
+  }
+}

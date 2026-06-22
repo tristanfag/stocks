@@ -1,0 +1,143 @@
+{
+  "dayKey": "2026-05-19",
+  "asOfLocal": "Tue, May 19 2026 — DAILY · distribution day · regime rotation",
+  "author": "claude (chat) · daily",
+  "summary": "DISTRIBUTION DAY. The market sold off broadly today and the dashboard's SELL count TRIPLED (8 → 25) since the May 11 weekly. Key rotation: AI Compute and Datacenters HANDED OFF reign to FOUNDRIES (now reigning both medium AND long at heat 98/100). Cybersecurity went vertical (+14% as a theme, +31.6% 1m) and then triggered parabolic-veto SELLs across the board (PANW/CRWD/DDOG/ZS/MDB all flashing exhaustion). The AI Power Utilities theme I added last week got DESTROYED: CEG -11.6%, VST -7.8%, TLN -15.7% — money rotated OUT after their May rally. Nuclear small-caps capitulated harder: OKLO -23%, SMR -17%, LEU -17%. Quantum sold off: QBTS -17%, RGTI -16%. PORTFOLIO ACTION: CEG override REVERTED back to cash+gold defensive sleeve — CEG is now a SELL (trend score 17, regime broken) and CRWD is parabolic. Long-Sortino-weekly auto-rebalanced Monday May 18: dropped MKSI + AMD, added VRT + AAOI. Portfolio value: $1,056.85 (down -9.2% from $1,163 inception, May 9 → May 19). The Goldman 'Stage 2 rotation' thesis playing out IN REAL TIME: investors moving OUT of pure AI compute/utility infra INTO cybersecurity + foundries + AI software. 24 BUY / 54 HOLD / 25 SELL.",
+  "tickers": {
+    "GFS": {
+      "verdict": "BUY",
+      "headline": "ONLY high-conviction BUY left standing · 30d Sharpe z +2.41σ",
+      "narrative": "GlobalFoundries is the new headline name. 30d Sharpe z +2.41σ, edge 71, in the now-reigning Foundries theme. -6.75% today but the 1m is +14.5%. This is the one BUY where momentum, theme, and statistical signals all align without parabolic-veto issues. Mature-node foundries getting priced like AI nodes — the structural revaluation continues."
+    },
+    "NVDA": {
+      "verdict": "BUY",
+      "headline": "Second high-conviction BUY · only +0.4% today (held up in the dump).",
+      "narrative": "NVDA held up while most of the universe sold off (+0.38% on the day vs broad -5 to -15% prints). 30d Sharpe z +1.14σ, edge 69. Notice the relative strength: when the market is correcting and NVDA holds flat, that's a signal of strong institutional bid. Stays a core position."
+    },
+    "FOUNDRIES_THEME": {
+      "verdict": "BUY",
+      "headline": "New REIGNING theme · M-heat 98 · L-heat 100.",
+      "narrative": "Foundries (GFS/INTC/TSM/UMC) replaced AI Compute as the reigning medium-term theme AND replaced Datacenters as the reigning long-term theme. This is significant: the bottleneck has moved from 'compute design' to 'compute manufacturing capacity.' UMC RSI 85 today (parabolic), INTC still in HOLD bucket. GFS is the cleanest pure-play."
+    },
+    "PANW": {
+      "verdict": "SELL",
+      "headline": "Parabolic exhaustion · +14.18% 1d · RSI 85.",
+      "narrative": "Cybersecurity theme had a screaming day (theme +14% on the day, +31.6% 1m), and PANW spiked +14.2% on top of an already-elevated regime. RSI 85 + at 52w-high zone = textbook take-profit. The thesis is intact (cybersecurity = reigning theme #2 at heat 97), but the entry is broken. If long: trim 1/3 to 1/2. If not long: WAIT for SMA20 retest, do not chase here."
+    },
+    "CRWD": {
+      "verdict": "SELL",
+      "headline": "Parabolic exhaustion · +15.32% 1d · z(50d) +2.83σ.",
+      "narrative": "Same setup as PANW — even hotter today (+15.3%). RSI 86, z(50d) +2.83σ, +45.5% 1m. The cybersecurity rotation thesis is real, but CRWD is now ahead of the rotation. If you held it as the override: you're up nicely from the position — consider trimming half. If not held: do not buy here. Wait for $3-5% pullback before re-engaging."
+    },
+    "DDOG": {
+      "verdict": "SELL",
+      "headline": "Parabolic exhaustion · +64.7% 1m · RSI 85.",
+      "narrative": "Datadog rocketed in the AI-software rotation (theme +18% 1m, +10.8% today). DDOG specifically up +64.7% 1m. Same parabolic-exhaustion as PANW/CRWD. The Goldman 'Stage 2 monetization' thesis is playing out, but DDOG burned through it in 4 weeks. Wait."
+    },
+    "ZS": {
+      "verdict": "SELL",
+      "headline": "Death cross active + +23.5% 1d squeeze — broken-but-bouncing.",
+      "narrative": "Zscaler spiked +23.5% today but DEATH CROSS is still active (SMA50 < SMA200). That's a counter-trend squeeze, not a primary trend resumption. Worst of both worlds: hot now (RSI 81, z +3σ) AND structural trend broken. Avoid."
+    },
+    "MDB": {
+      "verdict": "SELL",
+      "headline": "Death cross + +12% 1d squeeze — counter-trend rally.",
+      "narrative": "MongoDB same pattern as ZS. Death cross active, parabolic squeeze today (+12% 1d, z +3.2σ — the highest z-score in the universe). The squeeze will fade; the broken long-term trend won't fix itself in a session."
+    },
+    "CEG": {
+      "verdict": "SELL",
+      "headline": "REGIME BROKEN · -11.6% today · was in my override (REVERTED).",
+      "narrative": "Constellation Energy crashed -11.6% today as the AI Power Utilities theme rotated out aggressively. Trend score 17, 1m -9.6%. The MSFT Three Mile Island PPA story didn't change, but the price had run too far ahead. THIS WAS IN YOUR USER OVERRIDE — the dashboard's override is now REVERTED to cash+gold defensive sleeve. If you actually hold CEG, the dashboard's verdict is SELL — exit and wait for trend score to reclaim 50."
+    },
+    "VST": {
+      "verdict": "SELL",
+      "headline": "AI utility capitulation · -7.8% today · z(50d) -2.54σ.",
+      "narrative": "Vistra got hit hard today (-7.8%), 1m -15.2%. The 'AI Power Utilities' theme rotation reversed. z(50d) -2.54σ — that's actually starting to look interesting for mean-reversion buyers, but trend score 16 says wait. Watch for a base."
+    },
+    "TLN": {
+      "verdict": "SELL",
+      "headline": "-15.7% TODAY · AI utility group destruction.",
+      "narrative": "Talen Energy down -15.7% in a single session. 1m -8.8%. The Amazon Cumulus campus story is intact long-term, but the trade is broken. Trend score 24. Avoid until evidence of a base."
+    },
+    "OKLO": {
+      "verdict": "SELL",
+      "headline": "BLOODBATH · -23.26% TODAY.",
+      "narrative": "OKLO down -23.3% in one day. 1m -17.1%. The SMR small-cap nuclear thesis got annihilated today. Trend score 13 (one of the worst readings). When trend score is below 15, do not try to catch — wait for confirmation."
+    },
+    "SMR": {
+      "verdict": "SELL",
+      "headline": "-17.17% TODAY · 1m -22.2%.",
+      "narrative": "NuScale Power down -17.2% today, -22% 1m. Same SMR-small-cap capitulation as OKLO. Trend score 11. Strongest negative read in the entire universe today."
+    },
+    "LEU": {
+      "verdict": "SELL",
+      "headline": "Uranium / HALEU thesis breaking · -17.3% today.",
+      "narrative": "Centrus -17.3% today. 1m -16.2%. Trend score 11. The 'nuclear small-cap' rotation that was hot in Q2 is now in full capitulation. Don't catch the knife."
+    },
+    "QBTS": {
+      "verdict": "SELL",
+      "headline": "Quantum capitulation · -17.85% today.",
+      "narrative": "D-Wave down -17.9% today. -15.3% 1m. The 'quantum is the next big thing' Q1-Q2 narrative has rolled over. Trend score 22. Lottery-ticket entries should wait for the dust to settle."
+    },
+    "RGTI": {
+      "verdict": "SELL",
+      "headline": "Quantum capitulation #2 · -16.37% today.",
+      "narrative": "Rigetti -16.4% today, -18.8% 1m. Same story as QBTS. Trend score 17. The whole quantum basket sold off in sympathy."
+    },
+    "SYM": {
+      "verdict": "SELL",
+      "headline": "Humanoid robotics laggard · -11.17% today · z -1.8σ.",
+      "narrative": "Symbotic -11.2% today, -30% 1m. Trend score 12. The humanoid robotics theme just got added (heat 57 — not yet in the bid), and SYM specifically is in trouble. Wait."
+    },
+    "HIMS": {
+      "verdict": "SELL",
+      "headline": "GLP-1 telehealth thesis cratering · -13.06% today · -29.8% 1m.",
+      "narrative": "HIMS down -13.1% today, -29.8% in the past month. The Lilly/Novo dominance argument is fully priced. Trend score 11. Avoid."
+    },
+    "KTOS": {
+      "verdict": "SELL",
+      "headline": "Defense-AI continued capitulation · -5.62% today · -22.5% 1m.",
+      "narrative": "Kratos still bleeding. Down -5.6% today, -22.5% 1m. Trend score 19. The defense-AI rotation casualty pattern continues."
+    },
+    "LDOS": {
+      "verdict": "SELL",
+      "headline": "Now oversold (RSI 28) but regime still degrading.",
+      "narrative": "Leidos: 30d Sharpe z -2.0σ (was -1.8σ last week — accelerating decline). RSI 28 says technically oversold, but the regime z says wait for confirmation. -18.3% 1m. If you're tempted to bottom-fish here, the trend score 0 should give you pause."
+    },
+    "PYPL": {
+      "verdict": "SELL",
+      "headline": "Payments theme casualty · trend score 20.",
+      "narrative": "PayPal -12.8% 1m. The 'stablecoin and payment rails' theme (added last week) hasn't materialized as a bullish trade for PYPL specifically. Trend score 20. Wait."
+    },
+    "TRMB": {
+      "verdict": "HOLD",
+      "headline": "Humanoid/autonomy laggard · oversold but quiet.",
+      "narrative": "Trimble RSI 27 (deeply oversold), z(50d) -2.23σ. This is now in the mean-reversion-candidate bucket, not the SELL bucket. Could bounce off oversold. Trend score 17 still says wait, but z = -2.23 is the kind of setup that gets a 5-10% bounce."
+    },
+    "VRT": {
+      "verdict": "BUY",
+      "headline": "Just entered Long-Sortino-Weekly portfolio (Mon May 18 rebal).",
+      "narrative": "Vertiv (cooling/power for hyperscale) replaced AMD in the Sortino-weekly portfolio at Monday's rebalance. 12.65% weight ($133 in your $1,057). Strong 1y Sharpe profile + the cooling theme is in both medium AND long beneficiary chains. Watch for VRT to lead the cooling sub-theme as datacenters re-accelerate."
+    },
+    "AAOI": {
+      "verdict": "BUY",
+      "headline": "New addition in Sortino weekly (small 5% weight) · optical micro-cap.",
+      "narrative": "Applied Optoelectronics — small-cap optical interconnect. Made the Sortino top-8 at Monday's rebalance. Smaller weight (5%) because of high vol. Higher-beta exposure to the photonics theme alongside LITE."
+    },
+    "LRCX": {
+      "verdict": "BUY",
+      "headline": "Top weight in your portfolio now · 14.53%.",
+      "narrative": "Lam Research is now your largest position at 14.53% ($153). Lithography/WFE theme heat 85 long-term. 1y Sharpe z still strong. Held through the rebalance — the position only grew."
+    },
+    "WDC": {
+      "verdict": "BUY",
+      "headline": "Held position · storage/HBM spillover continues.",
+      "narrative": "Western Digital held at 11.5% in your portfolio. Edge 71 — the storage names (WDC/STX) continue to be the sneaky-good 'HBM spillover' exposure. The thesis: every AI rack needs storage that scales with the compute."
+    },
+    "MU": {
+      "verdict": "HOLD",
+      "headline": "HBM still in the portfolio but cooled from the parabolic.",
+      "narrative": "Micron held at 11.47%. The +37% 1d spike from May 9 has digested. RSI now more reasonable. The thesis (HBM monopoly, every AI GPU needs it) is intact — held position, no add."
+    }
+  }
+}
