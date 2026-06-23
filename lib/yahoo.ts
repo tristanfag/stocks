@@ -161,6 +161,40 @@ export async function getHistory(
   });
 }
 
+export type OHLCBar = { t: number; o: number; h: number; l: number; c: number };
+
+/**
+ * Fetch OHLC bars at a given interval (default weekly). Used by the ADX engine.
+ * Cached 30 min — weekly bars don't change intraweek in a way ADX cares about.
+ */
+export async function getOHLC(
+  symbol: string,
+  range: HistoryRange = "2y",
+  interval: "1d" | "1wk" | "1mo" = "1wk",
+): Promise<OHLCBar[]> {
+  const key = `ohlc:${symbol}:${range}:${interval}`;
+  const cached = cacheGet<OHLCBar[]>(key, 30 * 60_000);
+  if (cached) return cached;
+  return dedupe(key, async () => {
+    const r = await fetchChart(symbol, range, interval);
+    if (!r) return [];
+    const ts: number[] = r?.timestamp ?? [];
+    const q = r?.indicators?.quote?.[0] ?? {};
+    const o: (number | null)[] = q.open ?? [];
+    const h: (number | null)[] = q.high ?? [];
+    const l: (number | null)[] = q.low ?? [];
+    const c: (number | null)[] = q.close ?? [];
+    const out: OHLCBar[] = [];
+    for (let i = 0; i < ts.length; i++) {
+      if (h[i] != null && l[i] != null && c[i] != null && Number.isFinite(h[i]!) && Number.isFinite(l[i]!) && Number.isFinite(c[i]!)) {
+        out.push({ t: ts[i] * 1000, o: o[i] ?? c[i]!, h: h[i]!, l: l[i]!, c: c[i]! });
+      }
+    }
+    cacheSet(key, out);
+    return out;
+  });
+}
+
 export type NewsItem = {
   uuid: string;
   title: string;

@@ -256,6 +256,96 @@ export function beta(stockReturns: number[], marketReturns: number[]): number | 
   return cov / varM;
 }
 
+/**
+ * Wilder's Average Directional Index (ADX) with +DI / -DI.
+ * Measures trend STRENGTH (ADX) and DIRECTION (+DI vs -DI).
+ * Returns latest and previous values so callers can detect DI crosses and ADX rising/falling.
+ * Needs OHLC arrays of equal length; ~2*period+2 bars minimum.
+ *
+ * Conventions:
+ *  - ADX > 25 = strong trend; 20-25 = emerging; < 20 = no/weak trend (range-bound).
+ *  - +DI > -DI = uptrend; -DI > +DI = downtrend.
+ */
+export function adx(
+  high: number[],
+  low: number[],
+  close: number[],
+  period = 14,
+): {
+  adx: number; adxPrev: number | null;
+  plusDI: number; minusDI: number;
+  plusDIPrev: number | null; minusDIPrev: number | null;
+  bars: number;
+} | null {
+  const n = Math.min(high.length, low.length, close.length);
+  if (n < 2 * period + 2) return null;
+
+  // Per-bar True Range and directional movement (from i=1).
+  const TR: number[] = [], plusDM: number[] = [], minusDM: number[] = [];
+  for (let i = 1; i < n; i++) {
+    const upMove = high[i] - high[i - 1];
+    const downMove = low[i - 1] - low[i];
+    plusDM.push(upMove > downMove && upMove > 0 ? upMove : 0);
+    minusDM.push(downMove > upMove && downMove > 0 ? downMove : 0);
+    TR.push(Math.max(
+      high[i] - low[i],
+      Math.abs(high[i] - close[i - 1]),
+      Math.abs(low[i] - close[i - 1]),
+    ));
+  }
+  if (TR.length < period + 1) return null;
+
+  // Wilder smoothing (accumulation form): S_1 = sum(first period); S_i = S_{i-1} - S_{i-1}/period + x_i.
+  const wilder = (arr: number[]): number[] => {
+    const out: number[] = [];
+    let s = 0;
+    for (let i = 0; i < period; i++) s += arr[i];
+    out.push(s);
+    for (let i = period; i < arr.length; i++) {
+      s = s - s / period + arr[i];
+      out.push(s);
+    }
+    return out; // length = arr.length - period + 1
+  };
+
+  const smTR = wilder(TR);
+  const smPlusDM = wilder(plusDM);
+  const smMinusDM = wilder(minusDM);
+
+  // +DI, -DI, DX at each smoothed index (the /period cancels in the ratio).
+  const dx: number[] = [];
+  const plusDIArr: number[] = [], minusDIArr: number[] = [];
+  for (let i = 0; i < smTR.length; i++) {
+    const pDI = smTR[i] === 0 ? 0 : (100 * smPlusDM[i]) / smTR[i];
+    const mDI = smTR[i] === 0 ? 0 : (100 * smMinusDM[i]) / smTR[i];
+    plusDIArr.push(pDI);
+    minusDIArr.push(mDI);
+    const sum = pDI + mDI;
+    dx.push(sum === 0 ? 0 : (100 * Math.abs(pDI - mDI)) / sum);
+  }
+  if (dx.length < period + 1) return null;
+
+  // ADX = Wilder-smoothed AVERAGE of DX: ADX_1 = mean(first period DX); then recursion.
+  let adxVal = 0;
+  for (let i = 0; i < period; i++) adxVal += dx[i];
+  adxVal /= period;
+  const adxArr: number[] = [adxVal];
+  for (let i = period; i < dx.length; i++) {
+    adxVal = (adxVal * (period - 1) + dx[i]) / period;
+    adxArr.push(adxVal);
+  }
+
+  return {
+    adx: adxArr[adxArr.length - 1],
+    adxPrev: adxArr.length >= 2 ? adxArr[adxArr.length - 2] : null,
+    plusDI: plusDIArr[plusDIArr.length - 1],
+    minusDI: minusDIArr[minusDIArr.length - 1],
+    plusDIPrev: plusDIArr.length >= 2 ? plusDIArr[plusDIArr.length - 2] : null,
+    minusDIPrev: minusDIArr.length >= 2 ? minusDIArr[minusDIArr.length - 2] : null,
+    bars: n,
+  };
+}
+
 // Map a value into 0..100 by linear interpolation between [bad, good]; clamps.
 export function score(value: number | null | undefined, bad: number, good: number): number {
   if (value == null || !Number.isFinite(value)) return 50;

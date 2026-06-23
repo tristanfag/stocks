@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { formatPct, changeClass } from "@/lib/format";
 import TrendRecommendations from "./TrendRecommendations";
 import PortfolioTab from "./PortfolioTab";
+import AdxTab from "./AdxTab";
 
 type ThemeHeat = any;
 type Report = {
@@ -54,7 +55,7 @@ const HORIZON_META: Record<Horizon, {
   },
 };
 
-type Tab = "themes" | "recommendations" | "portfolio";
+type Tab = "themes" | "recommendations" | "portfolio" | "adx";
 
 export default function TrendEngine({ onSelectSymbol }: Props) {
   const [report, setReport] = useState<Report | null>(null);
@@ -100,6 +101,7 @@ export default function TrendEngine({ onSelectSymbol }: Props) {
           <TabButton active={tab === "themes"}          onClick={() => setTab("themes")}>Themes</TabButton>
           <TabButton active={tab === "recommendations"} onClick={() => setTab("recommendations")}>Recommendations</TabButton>
           <TabButton active={tab === "portfolio"}       onClick={() => setTab("portfolio")}>Portfolio</TabButton>
+          <TabButton active={tab === "adx"}             onClick={() => setTab("adx")}>ADX</TabButton>
         </div>
 
         {tab === "themes" && sameLeader && (
@@ -123,6 +125,7 @@ export default function TrendEngine({ onSelectSymbol }: Props) {
       )}
       {tab === "recommendations" && <TrendRecommendations onSelectSymbol={onSelectSymbol} />}
       {tab === "portfolio"       && <PortfolioTab onSelectSymbol={onSelectSymbol} />}
+      {tab === "adx"             && <AdxTab onSelectSymbol={onSelectSymbol} />}
     </div>
   );
 }
