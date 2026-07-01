@@ -24,18 +24,19 @@ type Report = {
   timeframe: string;
   period: number;
   dominantThemes: { mid: string | null; long: string | null };
+  newBuys: Row[];
   buys: Row[];
   all: Row[];
   methodology: string[];
 };
 
-type Filter = "buys" | "dominant" | "all";
+type Filter = "new" | "buys" | "dominant" | "all";
 
 export default function AdxTab({ onSelectSymbol }: { onSelectSymbol?: (s: string) => void }) {
   const [report, setReport] = useState<Report | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [filter, setFilter] = useState<Filter>("buys");
+  const [filter, setFilter] = useState<Filter>("new");
   const [methodOpen, setMethodOpen] = useState(false);
 
   useEffect(() => { void load(false); }, []);
@@ -53,6 +54,7 @@ export default function AdxTab({ onSelectSymbol }: { onSelectSymbol?: (s: string
 
   const rows = useMemo(() => {
     if (!report) return [];
+    if (filter === "new") return report.newBuys;
     if (filter === "buys") return report.buys;
     if (filter === "dominant") return report.all.filter((r) => r.inDominantTheme);
     return report.all;
@@ -76,9 +78,7 @@ export default function AdxTab({ onSelectSymbol }: { onSelectSymbol?: (s: string
   }
   if (!report) return null;
 
-  const freshCount = report.buys.filter((b) => b.signal === "BUY_FRESH").length;
-  const strongCount = report.buys.filter((b) => b.signal === "BUY_STRONG").length;
-  const domBuys = report.buys.filter((b) => b.inDominantTheme).length;
+  const newDom = report.newBuys.filter((b) => b.inDominantTheme).length;
 
   return (
     <div className="flex flex-col gap-3">
@@ -89,13 +89,14 @@ export default function AdxTab({ onSelectSymbol }: { onSelectSymbol?: (s: string
             ADX trend scanner · weekly · Wilder({report.period})
           </div>
           <div className="mt-0.5 text-sm text-ink-50">
-            <span className="text-gain font-semibold">{report.buys.length} BUY</span> signals
-            <span className="text-ink-300"> · {freshCount} fresh · {strongCount} strong · {domBuys} in dominant themes</span>
+            <span className="text-gain font-semibold">{report.newBuys.length} NEW</span> buy signal{report.newBuys.length === 1 ? "" : "s"} this week
+            <span className="text-ink-300"> · {newDom} in dominant themes · {report.buys.length} standing buys total</span>
           </div>
-          <div className="text-[11px] text-ink-300">As of {report.asOfDate} · follow uptrends early in the reigning themes</div>
+          <div className="text-[11px] text-ink-300">As of {report.asOfDate} · only names whose weekly BUY just triggered</div>
         </div>
         <div className="flex items-center gap-2">
-          <FilterChip label={`BUY (${report.buys.length})`} active={filter === "buys"} onClick={() => setFilter("buys")} />
+          <FilterChip label={`New (${report.newBuys.length})`} active={filter === "new"} onClick={() => setFilter("new")} />
+          <FilterChip label={`All buys (${report.buys.length})`} active={filter === "buys"} onClick={() => setFilter("buys")} />
           <FilterChip label="Dominant" active={filter === "dominant"} onClick={() => setFilter("dominant")} />
           <FilterChip label={`All (${report.all.length})`} active={filter === "all"} onClick={() => setFilter("all")} />
           <button onClick={() => load(true)} disabled={loading}
@@ -153,7 +154,13 @@ export default function AdxTab({ onSelectSymbol }: { onSelectSymbol?: (s: string
                 <td className="px-3 py-2 text-[11px] text-ink-300 max-w-[280px]">{r.rationale}</td>
               </tr>
             ))}
-            {rows.length === 0 && (
+            {rows.length === 0 && filter === "new" && (
+              <tr><td colSpan={8} className="px-4 py-8 text-center text-ink-300">
+                No new weekly BUY triggers this week — nothing crossed into a buy since last week.
+                <button onClick={() => setFilter("buys")} className="ml-2 text-ember-300 underline-offset-2 hover:underline">See standing buys →</button>
+              </td></tr>
+            )}
+            {rows.length === 0 && filter !== "new" && (
               <tr><td colSpan={8} className="px-4 py-8 text-center text-ink-300">No signals in this view.</td></tr>
             )}
           </tbody>

@@ -256,11 +256,21 @@ export function beta(stockReturns: number[], marketReturns: number[]): number | 
   return cov / varM;
 }
 
+/** One bar's ADX state — enough to classify a trend signal and detect transitions. */
+export type AdxBar = {
+  adx: number;
+  plusDI: number;
+  minusDI: number;
+  rising: boolean;      // ADX higher than the bar before it
+  crossedUp: boolean;   // +DI crossed above -DI on THIS bar (was <= on the prior bar)
+};
+
 /**
  * Wilder's Average Directional Index (ADX) with +DI / -DI.
  * Measures trend STRENGTH (ADX) and DIRECTION (+DI vs -DI).
- * Returns latest and previous values so callers can detect DI crosses and ADX rising/falling.
- * Needs OHLC arrays of equal length; ~2*period+2 bars minimum.
+ * Returns the latest bar's state AND the previous bar's state, so callers can
+ * detect a signal that JUST transitioned (e.g. became a BUY only on the latest bar).
+ * Needs OHLC arrays of equal length; ~2*period+3 bars minimum for `prev`.
  *
  * Conventions:
  *  - ADX > 25 = strong trend; 20-25 = emerging; < 20 = no/weak trend (range-bound).
@@ -272,9 +282,8 @@ export function adx(
   close: number[],
   period = 14,
 ): {
-  adx: number; adxPrev: number | null;
-  plusDI: number; minusDI: number;
-  plusDIPrev: number | null; minusDIPrev: number | null;
+  latest: AdxBar;
+  prev: AdxBar | null;
   bars: number;
 } | null {
   const n = Math.min(high.length, low.length, close.length);
@@ -335,15 +344,25 @@ export function adx(
     adxArr.push(adxVal);
   }
 
-  return {
-    adx: adxArr[adxArr.length - 1],
-    adxPrev: adxArr.length >= 2 ? adxArr[adxArr.length - 2] : null,
-    plusDI: plusDIArr[plusDIArr.length - 1],
-    minusDI: minusDIArr[minusDIArr.length - 1],
-    plusDIPrev: plusDIArr.length >= 2 ? plusDIArr[plusDIArr.length - 2] : null,
-    minusDIPrev: minusDIArr.length >= 2 ? minusDIArr[minusDIArr.length - 2] : null,
-    bars: n,
+  // Build a bar state at offset from the end (0 = latest, 1 = previous week).
+  // adxArr and plusDIArr/minusDIArr both END on the same bar, so end-relative
+  // indexing is aligned even though their start offsets differ.
+  const barAt = (off: number): AdxBar | null => {
+    const ai = adxArr.length - 1 - off;
+    const li = plusDIArr.length - 1 - off;
+    if (ai < 1 || li < 1) return null; // need one prior bar for rising + cross
+    return {
+      adx: adxArr[ai],
+      plusDI: plusDIArr[li],
+      minusDI: minusDIArr[li],
+      rising: adxArr[ai] > adxArr[ai - 1],
+      crossedUp: plusDIArr[li] > minusDIArr[li] && plusDIArr[li - 1] <= minusDIArr[li - 1],
+    };
   };
+
+  const latest = barAt(0);
+  if (!latest) return null;
+  return { latest, prev: barAt(1), bars: n };
 }
 
 // Map a value into 0..100 by linear interpolation between [bad, good]; clamps.
