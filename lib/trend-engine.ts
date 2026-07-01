@@ -1,6 +1,6 @@
 import { getHistory, getQuotes } from "./yahoo";
 import { TREND_GRAPH, type TrendNode } from "./trends";
-import { mean, returns, sma, pctChange, zScore, score } from "./stats";
+import { mean, returns, sma, pctChange, zScore, logisticScore } from "./stats";
 
 export type HeatComponents = {
   rs: number;          // blended RS vs SPY (raw % delta)
@@ -175,9 +175,11 @@ async function scoreTheme(node: TrendNode, spyR: {
   const momZMid = bucketMomZ(histories, 21);
   const componentsMid: HeatComponents = {
     rs: rsMid,
-    rsScore: Math.round(score(rsMid, -10, 15)),
+    // Logistic squash instead of linear clamp — the old score(rs,-10,15) pinned
+    // every hot theme at exactly 100, making the "reigning" pick an arbitrary tie.
+    rsScore: Math.round(logisticScore(rsMid, 2.5, 12.5)),
     breadth: Math.round(breadthMid),
-    momZScore: momZMid.rawZ != null ? Math.round(score(momZMid.rawZ, -2, 2)) : 50,
+    momZScore: momZMid.rawZ != null ? Math.round(logisticScore(momZMid.rawZ, 0, 2)) : 50,
     rawZ: momZMid.rawZ,
   };
   const heatMid = Math.round(
@@ -195,9 +197,9 @@ async function scoreTheme(node: TrendNode, spyR: {
   const momZLong = bucketMomZ(histories, 63);
   const componentsLong: HeatComponents = {
     rs: rsLong,
-    rsScore: Math.round(score(rsLong, -20, 30)),
+    rsScore: Math.round(logisticScore(rsLong, 5, 25)),
     breadth: Math.round(breadthLong),
-    momZScore: momZLong.rawZ != null ? Math.round(score(momZLong.rawZ, -2, 2)) : 50,
+    momZScore: momZLong.rawZ != null ? Math.round(logisticScore(momZLong.rawZ, 0, 2)) : 50,
     rawZ: momZLong.rawZ,
   };
   const heatLong = Math.round(

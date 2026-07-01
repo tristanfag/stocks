@@ -84,6 +84,36 @@ export type Insight = {
 const CACHE = new Map<string, { ts: number; data: Insight }>();
 const TTL_MS = 5 * 60 * 1000;
 
+/**
+ * Compute daily % returns for two candle series over their COMMON trading dates.
+ * Index-based tail alignment silently pairs a crypto Saturday bar with a SPY
+ * Friday bar; intersecting on calendar date fixes beta/correlation for mixed
+ * calendars and short histories.
+ */
+function alignedDailyReturns(
+  a: Array<{ t: number; c: number }>,
+  b: Array<{ t: number; c: number }>,
+): [number[], number[]] {
+  const day = (t: number) => new Date(t).toISOString().slice(0, 10);
+  const mapB = new Map<string, number>();
+  for (const bar of b) mapB.set(day(bar.t), bar.c);
+  const common: Array<[number, number]> = [];
+  for (const bar of a) {
+    const bc = mapB.get(day(bar.t));
+    if (bc != null) common.push([bar.c, bc]);
+  }
+  const ra: number[] = [], rb: number[] = [];
+  for (let i = 1; i < common.length; i++) {
+    const [pa0, pb0] = common[i - 1];
+    const [pa1, pb1] = common[i];
+    if (pa0 > 0 && pb0 > 0) {
+      ra.push((pa1 - pa0) / pa0);
+      rb.push((pb1 - pb0) / pb0);
+    }
+  }
+  return [ra, rb];
+}
+
 export async function buildInsight(symbol: string): Promise<Insight> {
   const cached = CACHE.get(symbol);
   if (cached && Date.now() - cached.ts < TTL_MS) return cached.data;
@@ -95,21 +125,28 @@ export async function buildInsight(symbol: string): Promise<Insight> {
   ]);
 
   const longCloses = longHist.map((c) => c.c);
-  // 1y window for the existing stats section
-  const closes = longCloses.slice(-Math.min(252, longCloses.length));
-  const last = closes[closes.length - 1] ?? null;
   const isCrypto = symbol.endsWith("-USD");
   const periodsPerYear = isCrypto ? 365 : 252;
+
+  // Bar counts per calendar window. Crypto candles include weekends (365 bars/yr),
+  // stocks trade ~252 days/yr — so "1m/3m/6m/1y" need different bar counts per asset.
+  const BARS = isCrypto
+    ? { m1: 30, m3: 91, m6: 182, y1: 365 }
+    : { m1: 21, m3: 63, m6: 126, y1: 252 };
+  // 1y stats window: y1+1 bars so the y1-bar return exists (a 252-bar slice can
+  // never produce a 252-bar return — this was why ret1y was always null).
+  const closes = longCloses.slice(-Math.min(BARS.y1 + 1, longCloses.length));
+  const last = closes[closes.length - 1] ?? null;
 
   // returns
   const dailyR = returns(closes);
   const longDailyR = returns(longCloses);
   const ret1d = closes.length > 1 ? pctChange(closes[closes.length - 2], closes[closes.length - 1]) : null;
   const sliceRet = (n: number) => closes.length > n ? pctChange(closes[closes.length - 1 - n], closes[closes.length - 1]) : null;
-  const ret1m = sliceRet(21);
-  const ret3m = sliceRet(63);
-  const ret6m = sliceRet(126);
-  const ret1y = sliceRet(252);
+  const ret1m = sliceRet(BARS.m1);
+  const ret3m = sliceRet(BARS.m3);
+  const ret6m = sliceRet(BARS.m6);
+  const ret1y = sliceRet(BARS.y1);
 
   const volAnn = annualisedVol(dailyR, periodsPerYear);
   const sh = sharpe(dailyR, periodsPerYear);
@@ -117,10 +154,11 @@ export async function buildInsight(symbol: string): Promise<Insight> {
   const om = omega(dailyR, 0);
   const mdd = closes.length ? maxDrawdown(closes) : null;
 
-  const spyClose = spy.map((c) => c.c);
-  const spyR = returns(spyClose);
-  const b = beta(dailyR, spyR);
-  const corr = correlation(dailyR, spyR);
+  // Beta/correlation vs SPY on DATE-ALIGNED returns. Naive tail-alignment by index
+  // was wrong for crypto (7d/wk bars vs SPY's 5d/wk) and short-history names.
+  const [alignedOwn, alignedSpy] = alignedDailyReturns(longHist.slice(-BARS.y1 - 1), spy);
+  const b = beta(alignedOwn, alignedSpy);
+  const corr = correlation(alignedOwn, alignedSpy);
 
   // signals
   const sma20arr = sma(closes, 20);
@@ -138,8 +176,9 @@ export async function buildInsight(symbol: string): Promise<Insight> {
   const win200 = closes.slice(-200);
   const priceVs50 = last != null && win50.length === 50 ? zScore(last, win50) : null;
   const priceVs200 = last != null && win200.length >= 50 ? zScore(last, win200) : null;
-  const yearHigh = closes.length ? Math.max(...closes.slice(-252)) : null;
-  const yearLow = closes.length ? Math.min(...closes.slice(-252)) : null;
+  // closes is already the trailing 1y window (calendar-correct per asset class)
+  const yearHigh = closes.length ? Math.max(...closes) : null;
+  const yearLow = closes.length ? Math.min(...closes) : null;
   const distHigh = last != null && yearHigh ? ((last - yearHigh) / yearHigh) * 100 : null;
   const distLow = last != null && yearLow ? ((last - yearLow) / yearLow) * 100 : null;
   const volumeZ = null; // chart endpoint doesn't always expose volume series; left as null for v1

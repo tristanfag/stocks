@@ -103,9 +103,13 @@ function percentile(x: number | null, values: number[]): number | null {
   if (x == null || !Number.isFinite(x)) return null;
   const valid = values.filter((v) => Number.isFinite(v));
   if (!valid.length) return null;
-  let below = 0;
-  for (const v of valid) if (v < x) below++;
-  return (below / valid.length) * 100;
+  // Midrank convention for ties — strictly-less counting biases tied values toward 0.
+  let below = 0, equal = 0;
+  for (const v of valid) {
+    if (v < x) below++;
+    else if (v === x) equal++;
+  }
+  return ((below + 0.5 * equal) / valid.length) * 100;
 }
 
 function smaAt(candles: Candle[], asOfMs: number, n: number): number | null {
@@ -672,24 +676,25 @@ function computeSleeveWeights(
     raw = picks.map((p) => ({ symbol: p.symbol, raw: 1 }));
   }
 
-  // Normalise to sleeveWeight and apply cap with iterative clipping.
+  // Normalise to sleeveWeight and apply cap with iterative water-filling.
+  // Each pass caps at least one more name, so `picks.length` passes always suffice
+  // (the old fixed 5-iteration bound was arbitrary). Guards: if nothing is left
+  // uncapped (possible when N*cap ≈ sleeve) or uncapped raw mass is zero, stop —
+  // the residual excess stays unallocated rather than dividing by zero into NaNs.
   const cap = sleeveWeight * STRATEGY.weightCap;
   let weights = normalise(raw, sleeveWeight);
-  for (let iter = 0; iter < 5; iter++) {
+  for (let iter = 0; iter < raw.length; iter++) {
     let excess = 0;
-    let uncappedCount = 0;
     for (const r of raw) {
       if (weights[r.symbol] > cap) {
         excess += weights[r.symbol] - cap;
         weights[r.symbol] = cap;
-      } else {
-        uncappedCount++;
       }
     }
-    if (excess <= 1e-9 || uncappedCount === 0) break;
-    // Redistribute excess proportionally among uncapped picks.
+    if (excess <= 1e-9) break;
     const uncapped = raw.filter((r) => weights[r.symbol] < cap - 1e-9);
     const sumUncapped = uncapped.reduce((s, r) => s + r.raw, 0);
+    if (!uncapped.length || sumUncapped <= 0) break;
     for (const r of uncapped) {
       weights[r.symbol] += excess * (r.raw / sumUncapped);
     }

@@ -1,0 +1,68 @@
+{
+  "dayKey": "2026-07-01",
+  "asOfLocal": "Wed, Jul 1 2026 — WEEKLY · semi-wide shakeout inside intact regimes",
+  "author": "claude (chat) · weekly · 12-agent deep-dive",
+  "summary": "SHAKEOUT WEEK, REGIMES INTACT. The whole semi complex took a violent single-day hit (MKSI -7.6%, LRCX -9.7%, MU -10.6%, INTC -9.0%, WDC -6.3%, LITE -6.6%, UMC -5.5%, STX -5.2%) — portfolio peaked $1,392 on Jun 22, dipped to $1,321, now $1,329 (+14.3% since May 9 inception, max DD only -6.6%). CRITICAL: not one holding triggered a regime break — every 30d Sharpe regime z is still positive, every trend score ≥ 51. This was distribution/digestion inside intact uptrends, not a trend change. The June 29 rebalance made ZERO changes — same 8 names + cash + gold. Theme rotation: Lithography & WFE reigns medium-term (100), Datacenters long-term (100); GLP-1/Metabolic surged to #2 mid heat (98, +17.2% 1m) — a genuinely new rotation to watch (LLY = confirmed leader, regime-supported); AI Compute cooled to 78 with 1m -5.6%. ADX: only ONE new weekly buy triggered (NOW) and it's VETOED — the cross fires into a death-cross structure with trend score 27; classic trap. Deep-dive verdicts: UMC + MKSI = HOLD_STRONG (30d z +1.3σ/+1.1σ, trend 86 both — the user's UMC entry is vindicated); LRCX/STX/WDC/MU/LITE = HOLD (cooling but no breaks); INTC = TRIM (30d z decayed to +0.59σ vs +2.6σ on 1y, price 22% above street); AMD = TRIM if still held (above street target, MACD negative). LLY = BUY starter size. Watch: persistent USD strength (DXY +2.2% 1m) is the macro headwind.",
+  "tickers": {
+    "MKSI": {
+      "verdict": "HOLD",
+      "headline": "HOLD_STRONG — regime intact after -7.6% shakeout: 30d z +1.1σ, trend 86.",
+      "narrative": "MKSI qualifies for the strongest hold rating: 30d Sharpe regime z +1.14σ, trend 86, and no veto fires — RSI cooled to 59.6, z(50d) +1.81σ after the -7.6% drop off a fresh 52w high. 1m +29.4%, 3m +78.9%, Sortino 4.66. Caveats argue against ADDING, not against holding: price above analyst mean target (-2.6%), mean-reversion model -5.4%, and d365 regime z +2.37σ marks a multi-quarter hot streak. Tripwires: 30d z toward -1.5σ or trend <35 → SELL; z50 ≥ +2.5σ on re-acceleration → TRIM."
+    },
+    "UMC": {
+      "verdict": "HOLD",
+      "headline": "HOLD_STRONG — regime still ACCELERATING: 30d z +1.3σ, trend 86. Your entry vindicated.",
+      "narrative": "The June 22 buy is working. UMC +12.3% 1m, +186% 3m, and the regime ladder is extraordinary: 30d z +1.30σ, 90d +2.36σ, 180d +2.99σ, 365d +3.83σ — every window strengthening, no late-stage divergence. RSI a moderate 59.5 after the -5.5% down day; no parabolic veto. Risks: +128% above SMA200, stale 4-analyst 'sell' target 37% below price, mean-reversion -5.1%. Escalate to TRIM only if RSI ≥ 80 or z50 ≥ +2.5σ."
+    },
+    "LRCX": {
+      "verdict": "HOLD",
+      "headline": "Trend intact after -9.7% shakeout; a hair under HOLD_STRONG; 11% above street target.",
+      "narrative": "+23.4% 1m, +83.1% 3m, trend 85, momentum 94, 30d regime z +0.95σ (just under the +1σ HOLD_STRONG bar). The -9.7% single-day reversal from the 52w high reset short-term stretch (RSI 56). Warning list is real: price 11% ABOVE analyst mean target, z200 +2.37σ, value score 7 (PE 82, P/S 22). Hold on trend discipline; a second distribution day or 30d z rolling negative justifies trimming into strength."
+    },
+    "STX": {
+      "verdict": "HOLD",
+      "headline": "Healthy consolidation after +225% 6m; momentum cooling, not breaking.",
+      "narrative": "1m flat (-0.7%) against +134% 3m — classic digestion. Price below SMA20, MACD hist -17.5, but RSI 49 and z50 +0.57σ are neutral; 30d regime z +0.42σ, trend 74 — no break. The 30d-vs-365d regime divergence (+0.42σ vs +2.03σ) flags a late-stage plateau. Analyst upside nearly exhausted (+3.6%). Sortino 5.44 still justifies the seat; SELL flip below -1.5σ regime z or trend 35."
+    },
+    "WDC": {
+      "verdict": "HOLD",
+      "headline": "Mid-band consolidation after +121% 3m; regime ladder normalizing (d30 +0.41σ).",
+      "narrative": "Digesting +233% 6m: RSI 50.5, z50 +0.75σ, bbPctB 0.45 — dead-center neutral. Regime ladder d30 +0.41 / d90 +0.86 / d180 +1.41 / d365 +2.05 shows near-term momentum normalized after the rally. Golden cross intact, quality 86, Sortino 6.1. Price already above analyst mean target (-1.4% upside). Sell-bias triggers: SMA50 break (~$526, -12%) or 30d z through -1.5σ."
+    },
+    "INTC": {
+      "verdict": "HOLD",
+      "headline": "TRIM — post-parabolic cooldown: 30d z decayed to +0.59σ, price 22% above street.",
+      "narrative": "The portfolio's rocket (+246% 6m) is decelerating: 30d Sharpe z +0.59σ vs +2.04σ/90d and +2.59σ/1y — classic late-stage divergence, confirmed by the -9.0% day and MACD flipping negative. No hard veto fires (RSI 53.5, trend 77), but valuation gives no floor: 22.5% above the 49-analyst mean target, fwd PE 132, negative FCF, Altman Z 1.94. Bank part of the near-quadruple; re-add if 30d z re-expands above +1σ or price consolidates to SMA50 (~$112) without breaking trend."
+    },
+    "MU": {
+      "verdict": "HOLD",
+      "headline": "Cooling consolidation after +206% 3m; fwd P/E 8, analyst +44% — hold through the chop.",
+      "narrative": "Violent -10.6% day but 1m is flat — digestion after a huge leg. RSI 51.8, z50 +0.85σ, no veto; 30d regime z +0.74σ, trend 75, no break. MACD negative and price below SMA20 = momentum stalled. But fundamentals are the best in the book: fwd P/E 8.0, PEG 0.05, ROE 67%, Piotroski 8, 45-analyst strong_buy with +44% upside. Exiting a quality-100 name on consolidation is premature. Trim trigger: SMA50 break (~$842) or 30d z below -1.5σ."
+    },
+    "LITE": {
+      "verdict": "HOLD",
+      "headline": "Oversold pullback (z50 -1.61σ, bbPctB 0.09) inside intact 1y regime — bad spot to trim.",
+      "narrative": "Correcting hard: -11.5% 1m, -23.9% off 52w high, price -11% below SMA50. But this is statistical oversold, not parabolic: RSI 43, 30d regime z -0.48σ (threshold -1.5σ), 180d/365d z still +1.4σ/+1.5σ. Mean-reversion +3.0% and analyst consensus +38.7% upside make trimming into this dip poor timing. Downgrade if 30d z pierces -1.5σ or trend <35; reclaim of SMA50 (~$900) re-arms HOLD_STRONG."
+    },
+    "AMD": {
+      "verdict": "HOLD",
+      "headline": "TRIM if still held — late-stage: +166% 3m, now 6% ABOVE street target, MACD negative.",
+      "narrative": "The strategy dropped AMD on June 22. If you still hold the $130 position: trend 78 and golden cross argue against full exit, but the 30d regime z (+0.72) is the weakest of all four windows, MACD flipped negative, -6.9% day, and price sits 6% above the 51-analyst mean target with value score 14 (fwd PE 67). Harvest a substantial slice; keep a runner while price holds SMA20 ($518); exit fully on 30d z < -1.5σ or trend < 35."
+    },
+    "NOW": {
+      "verdict": "SELL",
+      "headline": "ADX fresh-buy VETOED: cross fires into death-cross structure, trend score 27.",
+      "narrative": "This week's only new ADX weekly buy is a trap by house rules: the +DI cross fires with price 20.6% below SMA200, death cross active, trend 27, momentum 28 — trend ≤ 35 mandates SELL bias. The +6.6% pop after -22% month reads as dead-cat bounce. Genuine repair signs exist (30d regime z normalized to +0.06 from -1.61 at 1y; SMA50 reclaimed; analyst +33% upside) — put it on the watchlist, re-evaluate if trend clears 35-40 and the SMA200 gap closes. Do not buy the bounce."
+    },
+    "LLY": {
+      "verdict": "BUY",
+      "headline": "GLP-1 theme leader, regime-CONFIRMED (+1.04σ 30d z) — buy starter size, stage adds.",
+      "narrative": "GLP-1/Metabolic surged to #2 medium-term theme heat (98, +17.2% 1m) and LLY is the confirmed leader: +10.1% 1m, +29.6% 3m with 30d regime z +1.04σ — short-term risk-adjusted returns still IMPROVING vs its own history, not late-stage. Trend 86, quality 83 (ROE 107%, Altman 7.6), no veto (RSI 64.5, z50 +1.47σ). Entry is extended though: +13.6% above SMA50, -3.1% off 52w high, analyst upside only +2.4%. Starter position now, stage adds toward SMA20 (~$1,140)."
+    },
+    "NVO": {
+      "verdict": "HOLD",
+      "headline": "WATCH — contrarian repair real but early: death cross intact, 90/180/365d z still negative.",
+      "narrative": "The broken-regime name is repairing: 30d Sharpe 2.43 (z +0.60 vs -0.80 at 1y), 200d SMA reclaimed, +32.7% 3m, P/E 11.6 with ROE 71% — classic GARP repair. But entry is poor right now (z50 +1.84σ, RSI 68.6, above analyst target) and structure unconfirmed (death cross still active, trend 56, all longer regime windows negative). Wait for a 50d pullback (~$44) or a successful 200d retest with 30d z holding >0. A break back below the 200d kills the thesis."
+    }
+  }
+}

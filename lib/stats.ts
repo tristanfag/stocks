@@ -202,15 +202,18 @@ export function rollingOmega(dailyReturns: number[], window: number, threshold =
 }
 
 /**
- * z-score the most recent value in `series` against the full series.
+ * z-score the most recent value in `series` against the REST of the series
+ * (leave-one-out: the last value is excluded from its own reference distribution,
+ * removing the mild self-inclusion bias that shrinks extreme z readings).
  * Returns null if too few samples or zero variance.
  */
 export function zOfLast(series: number[]): { value: number | null; z: number | null; samples: number } {
   if (!series.length) return { value: null, z: null, samples: 0 };
   const last = series[series.length - 1];
-  if (series.length < 30) return { value: last, z: null, samples: series.length };
-  const m = mean(series);
-  const s = stdev(series);
+  if (series.length < 31) return { value: last, z: null, samples: series.length };
+  const ref = series.slice(0, -1); // leave-one-out
+  const m = mean(ref);
+  const s = stdev(ref);
   if (!Number.isFinite(s) || s === 0) return { value: last, z: null, samples: series.length };
   return { value: last, z: (last - m) / s, samples: series.length };
 }
@@ -368,20 +371,33 @@ export function adx(
 // Map a value into 0..100 by linear interpolation between [bad, good]; clamps.
 export function score(value: number | null | undefined, bad: number, good: number): number {
   if (value == null || !Number.isFinite(value)) return 50;
-  const lo = Math.min(bad, good);
-  const hi = Math.max(bad, good);
+  if (bad === good) return 50; // degenerate range — no information
   const t = (value - bad) / (good - bad); // monotone in direction of good
   return Math.max(0, Math.min(100, t * 100));
 }
 
-// Empirical CDF rank (0..100) of x within universe.
+/**
+ * Smooth 0..100 squash via logistic curve — like score() but never saturates flat,
+ * so rankings keep discrimination at the extremes (no pinning at exactly 100).
+ * `mid` maps to 50; `mid + halfRange` maps to ~88; `mid + 2*halfRange` to ~98.
+ */
+export function logisticScore(value: number | null | undefined, mid: number, halfRange: number): number {
+  if (value == null || !Number.isFinite(value) || halfRange <= 0) return 50;
+  return 100 / (1 + Math.exp((-2 * (value - mid)) / halfRange));
+}
+
+// Empirical CDF rank (0..100) of x within universe, midrank convention for ties
+// (strictly-less counting alone biases tied values toward 0).
 export function pctRank(x: number | null | undefined, universe: (number | null | undefined)[]): number | null {
   if (x == null || !Number.isFinite(x)) return null;
   const valid = universe.filter((v): v is number => v != null && Number.isFinite(v));
   if (!valid.length) return null;
-  let below = 0;
-  for (const v of valid) if (v < x) below++;
-  return (below / valid.length) * 100;
+  let below = 0, equal = 0;
+  for (const v of valid) {
+    if (v < x) below++;
+    else if (v === x) equal++;
+  }
+  return ((below + 0.5 * equal) / valid.length) * 100;
 }
 
 export function pctRankInverse(x: number | null | undefined, universe: (number | null | undefined)[]): number | null {
