@@ -1,0 +1,63 @@
+{
+  "dayKey": "2026-07-08",
+  "asOfLocal": "Wed, Jul 8 2026 — WEEKLY · drawdown deepens, GLP-1 takes the crown, LRCX→AMD swap",
+  "author": "claude (chat) · weekly",
+  "summary": "DRAWDOWN WEEK TWO. The semi complex kept deflating: portfolio $1,392 (Jun 22 peak) → $1,321 → $1,234 (Jul 6 rebalance) → $1,206.53 now. Return since inception compressed from +14.3% to +3.74%; max drawdown deepened to -13.3%. CRITICAL CHECK: still ZERO regime breaks — all eight holdings have 30d Sharpe regime z > -1.5σ and trend > 35. LITE is the closest casualty (1m -19.2%, z50 -2.40σ deeply oversold, 30d z -1.11σ) but remains inside its regime. This is a momentum unwind inside intact structures, not trend death — exactly what a -13% drawdown in a 55-100% vol book feels like. THEME ROTATION IS THE HEADLINE: GLP-1/Metabolic took the #1 medium-term crown (heat 95, +21.2% 1m) — the FIRST non-AI reigning theme since inception. AI Compute fell to 60 (1m -4.6%), Datacenters to 54. Long-term still Foundries (96) — the structural AI story is intact, the tactical bid rotated to pharma. JULY 6 REBALANCE: LRCX OUT (after -9.7% shakeout + it was 11% above street target), AMD IN at 11.28% — AMD's third round-trip; ADX confirms it BUY_STRONG rising (43). ADX scanner: ZERO new weekly buys this week — no fresh trend ignitions anywhere in the universe; 17 standing buys. Book ADX split: UMC/AMD/MU still BUY_STRONG rising; MKSI/STX/WDC/INTC/LITE all UPTREND-with-falling-ADX (decelerating). Regime: SPY +7.4% above 200d, VIX 16.8, DXY cooled to neutral — macro is fine; this is sector rotation, not risk-off.",
+  "tickers": {
+    "AMD": {
+      "verdict": "BUY",
+      "headline": "BACK IN THE BOOK (3rd time) at 11.28% — ADX BUY_STRONG rising confirms.",
+      "narrative": "The July 6 rebalance re-added AMD, replacing LRCX. Trend 75, 30d regime z +0.18σ, RSI 51, z50 +0.62σ — a much cleaner entry than the June 22 exit point. Weekly ADX 43 rising with +DI leading = confirmed uptrend. If you still hold your $130 June position, you're already aligned — just verify the weight (~11%). If you sold it to fund UMC, rebuy here using LRCX proceeds."
+    },
+    "LRCX": {
+      "verdict": "SELL",
+      "headline": "DROPPED by the strategy — sell to fund AMD.",
+      "narrative": "Lam Research exits the book after the -9.7% distribution day and a month where it ran 11% above the analyst mean target. Nothing is broken (trend 64, 30d z +0.04σ) — it simply lost its top-8 Sortino seat to AMD. Mechanical rotation, not a bearish call. If following the strategy: sell the full position."
+    },
+    "UMC": {
+      "verdict": "HOLD",
+      "headline": "Strongest name in the book — 1m +25.7%, ADX 58.7 rising, 30d z +0.95σ.",
+      "narrative": "Your June 22 buy keeps compounding: +25.7% on the month while the rest of the book bled. Trend 76, weekly ADX BUY_STRONG rising, RSI a clean 54. The regime ladder remains elite. Still the highest-conviction hold in the portfolio."
+    },
+    "MKSI": {
+      "verdict": "HOLD",
+      "headline": "Cooled from HOLD_STRONG: 30d z faded to +0.25σ, ADX now falling.",
+      "narrative": "Top weight (13.15%) digesting — 1m still +16.1% but trend slipped to 67, weekly ADX 48 falling, RSI 47. No break (well above thresholds), but the deceleration is real. Watch for the 30d z to go negative as an early trim cue."
+    },
+    "LITE": {
+      "verdict": "HOLD",
+      "headline": "The book's pain trade: 1m -19.2%, z50 -2.40σ — deeply oversold, NOT broken.",
+      "narrative": "Lumentum is bearing the brunt of the photonics unwind: -19.2% on the month, price 2.4σ below its 50d mean, RSI 36. But 30d regime z is -1.11σ (threshold -1.5σ) and trend 47 (threshold 35) — no break, and selling 2.4σ below the mean is statistically the worst exit point. Mean-reversion favors patience. Hard tripwire: 30d z through -1.5σ → exit."
+    },
+    "STX": {
+      "verdict": "HOLD",
+      "headline": "Flat month (-2.2%), trend 58, ADX falling — plateau continues.",
+      "narrative": "Seagate's consolidation extends. RSI 43, z50 -0.23σ — dead neutral. The +225% 6m run is being digested sideways rather than given back. Hold; nothing actionable."
+    },
+    "WDC": {
+      "verdict": "HOLD",
+      "headline": "+4.1% 1m, neutral everything — the quiet holder.",
+      "narrative": "Trend 58, RSI 44, 30d z -0.02σ. WDC is doing nothing wrong and nothing exciting. ADX 60 falling means the big trend is decelerating, but structure is intact."
+    },
+    "INTC": {
+      "verdict": "HOLD",
+      "headline": "Last week's TRIM call aged well — if you trimmed, sit tight on the runner.",
+      "narrative": "INTC cooled further (trend 54, 30d z -0.29σ, RSI 42) without breaking. The July 1 advice to bank part of the near-quadruple was right — it's drifted lower since. The remaining position holds unless 30d z pierces -1.5σ or trend breaks 35."
+    },
+    "MU": {
+      "verdict": "HOLD",
+      "headline": "ADX BUY_STRONG rising + fwd P/E ~8 — fundamentals still the book's best.",
+      "narrative": "Trend 69, 30d z +0.29σ, RSI 46, weekly ADX 53.7 rising. Micron keeps its seat comfortably. The HBM thesis is unchanged; the stock is consolidating with the sector."
+    },
+    "GLP1_THEME": {
+      "verdict": "BUY",
+      "headline": "GLP-1/Metabolic is the NEW REIGNING medium-term theme (95) — first non-AI leader.",
+      "narrative": "The rotation flagged last week completed: GLP-1 took #1 with +21.2% 1m while AI Compute fell to 60. LLY remains the regime-confirmed leader (last week's starter-buy call). This is tactical rotation, not AI-thesis death — Foundries still reigns long-term at 96. If you took the LLY starter, hold it; the theme bid is strengthening."
+    },
+    "ADX_SCANNER": {
+      "verdict": "HOLD",
+      "headline": "ZERO new weekly ADX buys — no fresh trend ignitions anywhere.",
+      "narrative": "For the first time since the scanner launched, no name in the 100-ticker universe newly triggered a weekly buy. 17 standing buys persist (UMC/AMD/MU among them). A quiet tape: existing trends decelerating, no new ones igniting. This is consistent with a rotation/digestion phase — the next fresh cross will mark where the new leadership forms."
+    }
+  }
+}

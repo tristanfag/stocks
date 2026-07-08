@@ -5,6 +5,7 @@ import { formatPct, changeClass } from "@/lib/format";
 import TrendRecommendations from "./TrendRecommendations";
 import PortfolioTab from "./PortfolioTab";
 import AdxTab from "./AdxTab";
+import RiskTab from "./RiskTab";
 
 type ThemeHeat = any;
 type Report = {
@@ -55,7 +56,7 @@ const HORIZON_META: Record<Horizon, {
   },
 };
 
-type Tab = "themes" | "recommendations" | "portfolio" | "adx";
+type Tab = "themes" | "recommendations" | "portfolio" | "adx" | "risk";
 
 export default function TrendEngine({ onSelectSymbol }: Props) {
   const [report, setReport] = useState<Report | null>(null);
@@ -102,6 +103,7 @@ export default function TrendEngine({ onSelectSymbol }: Props) {
           <TabButton active={tab === "recommendations"} onClick={() => setTab("recommendations")}>Recommendations</TabButton>
           <TabButton active={tab === "portfolio"}       onClick={() => setTab("portfolio")}>Portfolio</TabButton>
           <TabButton active={tab === "adx"}             onClick={() => setTab("adx")}>ADX</TabButton>
+          <TabButton active={tab === "risk"}            onClick={() => setTab("risk")}>Risk</TabButton>
         </div>
 
         {tab === "themes" && sameLeader && (
@@ -126,6 +128,7 @@ export default function TrendEngine({ onSelectSymbol }: Props) {
       {tab === "recommendations" && <TrendRecommendations onSelectSymbol={onSelectSymbol} />}
       {tab === "portfolio"       && <PortfolioTab onSelectSymbol={onSelectSymbol} />}
       {tab === "adx"             && <AdxTab onSelectSymbol={onSelectSymbol} />}
+      {tab === "risk"            && <RiskTab onSelectSymbol={onSelectSymbol} />}
     </div>
   );
 }
