@@ -1,6 +1,6 @@
 import { getHistory, type Candle } from "./yahoo";
 import { TREND_GRAPH } from "./trends";
-import { sma, returns, sharpe, sortino, omega, annualisedVol, pctChange, mean } from "./stats";
+import { sma, returns, sharpe, sortino, omega, annualisedVol, pctChange, mean, correlation } from "./stats";
 
 // ---- Strategy parameters --------------------------------------------------
 export const STRATEGY = {
@@ -29,9 +29,34 @@ export const STRATEGY = {
   weightCap: 0.25,
   /** Window (trading days) used to compute volatility for inverse-vol weighting. */
   volWindow: 90,
+
+  // ---- Tested enhancements — ALL DISABLED BY DEFAULT ----------------------
+  // A/B tested 2026-07-25 over 2024-01-01..2026-07 (133 weekly rebalances,
+  // longWeeklySortino/sortino), net of 10/25/50bps per unit turnover.
+  // Baseline beat every variant at EVERY friction level:
+  //   baseline      +566% gross, 761%/yr turnover, DD -22.3%, Sharpe 2.17,
+  //                 net@50bps $120,253  <-- WINNER
+  //   +hysteresis   +441%, 422%/yr,     DD -25.4% (WORSE), Sharpe 1.91, $102,427
+  //   +correlation  +473%, 821%/yr,     DD -21.2% (better), Sharpe 2.05, $102,637
+  //   +radar expo   +442%, 842%/yr,     DD -22.3%, Sharpe 2.06, $96,773
+  //   all three     +343%, 546%/yr,     DD -25.4%, Sharpe 1.83, $82,336
+  // Interpretation: in a relentless momentum regime, fast rotation into the
+  // newest leader IS the alpha — damping it (hysteresis), diversifying away
+  // from the hot cluster (correlation), or de-risking on stress (radar) all
+  // cost more than the friction they save. The one honest caveat: the test
+  // window contains NO true bear market, so it is structurally biased against
+  // defensive measures. Re-test these before the next real drawdown regime;
+  // the correlation penalty is the most defensible (only variant that improved
+  // drawdown).
+  rankBuffer: 0,
+  corrPenalty: 0,
+  corrThreshold: 0.75,
+  corrWindow: 90,
+  radarScaledExposure: false,
 };
 
-const MACRO_SYMBOLS = ["SPY", "^VIX", "GLD", "BTC-USD", "ETH-USD"];
+// SMH/HYG/LQD/^TNX power the point-in-time stress index (radar-scaled exposure).
+const MACRO_SYMBOLS = ["SPY", "^VIX", "GLD", "BTC-USD", "ETH-USD", "SMH", "HYG", "LQD", "^TNX"];
 
 function dayKey(d: Date): string { return d.toISOString().slice(0, 10); }
 function startOfDay(d: Date): Date { const x = new Date(d); x.setUTCHours(0,0,0,0); return x; }
@@ -436,8 +461,10 @@ async function simulate(
       portValue += cash * (STRATEGY.cashAnnualYield * days / 365);
     }
 
-    // compute target allocation using only data ≤ dtMs
-    const target = applyUserOverride(horizon, computeAllocation(dtMs, histories, equities, cfg.rankWindow, ranker));
+    // compute target allocation using only data ≤ dtMs.
+    // Pass current holdings so rank hysteresis can protect incumbent seats.
+    const incumbents = new Set(Object.keys(holdings));
+    const target = applyUserOverride(horizon, computeAllocation(dtMs, histories, equities, cfg.rankWindow, ranker, false, incumbents));
 
     // re-balance
     const newHoldings: Record<string, number> = {};
@@ -535,6 +562,62 @@ async function simulate(
   return { horizon, config: cfg, equityCurve, allocations, summary };
 }
 
+/**
+ * Point-in-time market-stress index (0..100) using only data ≤ asOfMs, so it is
+ * backtest-safe. A compact version of the Risk-tab radar: sector trend (SMH),
+ * credit (HYG/LQD), vol regime (VIX level + 21d spike), rate shock (^TNX).
+ * Higher = more stress → the strategy holds more cash.
+ */
+function stressIndexAt(asOfMs: number, histories: Map<string, Candle[]>): number {
+  const get = (s: string) => histories.get(s) ?? [];
+  const parts: Array<{ w: number; v: number }> = [];
+
+  // Sector trend (weight 35) — the single most relevant read for this book.
+  const smh = get("SMH");
+  const smhPx = priceAtOrBefore(smh, asOfMs);
+  const smh50 = smaAt(smh, asOfMs, 50), smh200 = smaAt(smh, asOfMs, 200);
+  if (smhPx != null && smh50 != null && smh200 != null) {
+    const v = smhPx < smh200 || smh50 < smh200 ? 1 : smhPx < smh50 ? 0.5 : 0;
+    parts.push({ w: 35, v });
+  }
+
+  // Credit stress (weight 30) — HYG below its 200d, or HYG/LQD falling fast.
+  const hyg = get("HYG"), lqd = get("LQD");
+  const hygPx = priceAtOrBefore(hyg, asOfMs), hyg200 = smaAt(hyg, asOfMs, 200);
+  if (hygPx != null && hyg200 != null) {
+    const hygRet = trailingReturn(hyg, asOfMs, 21);
+    const lqdRet = trailingReturn(lqd, asOfMs, 21);
+    const rel = hygRet != null && lqdRet != null ? hygRet - lqdRet : null;
+    const v = hygPx < hyg200 || (rel != null && rel <= -2.5) ? 1
+      : (rel != null && rel <= -1) ? 0.5 : 0;
+    parts.push({ w: 30, v });
+  }
+
+  // Vol regime (weight 20) — level plus 21d spike.
+  const vix = get("^VIX");
+  const vixPx = priceAtOrBefore(vix, asOfMs);
+  if (vixPx != null) {
+    const spike = trailingReturn(vix, asOfMs, 21);
+    const v = vixPx >= 28 || (spike != null && spike >= 50) ? 1
+      : vixPx >= 20 || (spike != null && spike >= 30) ? 0.5 : 0;
+    parts.push({ w: 20, v });
+  }
+
+  // Rate shock (weight 15) — ^TNX in percent on Yahoo v8.
+  const tnx = get("^TNX");
+  const tNow = priceAtOrBefore(tnx, asOfMs);
+  const closes = closesUpTo(tnx, asOfMs);
+  const tAgo = closes.length > 21 ? closes[closes.length - 22] : null;
+  if (tNow != null && tAgo != null) {
+    const bp = (tNow - tAgo) * 100;
+    parts.push({ w: 15, v: bp >= 60 ? 1 : bp >= 40 ? 0.5 : 0 });
+  }
+
+  if (!parts.length) return 0;
+  const totW = parts.reduce((a, p) => a + p.w, 0);
+  return (parts.reduce((a, p) => a + p.w * p.v, 0) / totW) * 100;
+}
+
 // ---- Allocation rule ----------------------------------------------------
 function computeAllocation(
   asOfMs: number,
@@ -543,6 +626,8 @@ function computeAllocation(
   rankWindow: number = 252,
   ranker: typeof STRATEGY.ranker = STRATEGY.ranker,
   forceCryptoOn: boolean = false,
+  /** Symbols held going into this rebalance — enables rank hysteresis. */
+  incumbents: Set<string> = new Set(),
 ): {
   weights: Record<string, number>;
   classWeights: Record<AssetClass, number>;
@@ -567,7 +652,20 @@ function computeAllocation(
   const vixVal = priceAtOrBefore(vix, asOfMs);
   const isDefensive = vixVal != null && vixVal > STRATEGY.vixDefensiveThreshold;
 
-  const cashWeight = (spyRiskOn === false) ? STRATEGY.cashWeightRiskOff : STRATEGY.cashWeightRiskOn;
+  // ---- Exposure: radar-scaled (sector-aware) or legacy SPY-only ------------
+  // The legacy rule only de-risks when SPY breaks its 200d — useless for a
+  // semi-heavy book, where SMH can crack while SPY sits calm. The radar reads
+  // the sector trend, credit stress and vol regime instead.
+  let cashWeight: number;
+  let stress: number | null = null;
+  if (STRATEGY.radarScaledExposure) {
+    stress = stressIndexAt(asOfMs, histories);
+    // stress 0..100 → cash 10% (calm) .. 45% (severe)
+    const target = stress >= 60 ? 0.45 : stress >= 40 ? 0.35 : stress >= 20 ? 0.20 : 0.10;
+    cashWeight = target;
+  } else {
+    cashWeight = (spyRiskOn === false) ? STRATEGY.cashWeightRiskOff : STRATEGY.cashWeightRiskOn;
+  }
   const goldWeight = isDefensive ? STRATEGY.goldWeightDefensive : STRATEGY.goldWeightBase;
   const cryptoWeight = (forceCryptoOn || btcRiskOn === true) ? STRATEGY.cryptoWeightOn : 0;
   const equityWeight = Math.max(0, 1 - cashWeight - goldWeight - cryptoWeight);
@@ -611,7 +709,67 @@ function computeAllocation(
     return { ...c, score };
   });
   scored.sort((a, b) => b.score - a.score);
-  const picks = scored.slice(0, STRATEGY.equityTopN);
+
+  // ---- Select top-N: greedy with correlation penalty ----------------------
+  // Plain top-N picks 8 names that are effectively ONE bet (all semis, pairwise
+  // corr > 0.8). Greedy selection subtracts a penalty for correlation with
+  // already-chosen names, so each seat adds diversification, not duplication.
+  const retCache = new Map<string, number[]>();
+  const retsOf = (sym: string): number[] => {
+    let r = retCache.get(sym);
+    if (!r) {
+      const h = histories.get(sym) ?? [];
+      const closes = closesUpTo(h, asOfMs).slice(-(STRATEGY.corrWindow + 1));
+      r = returns(closes);
+      retCache.set(sym, r);
+    }
+    return r;
+  };
+
+  let picks: Scored[];
+  if (STRATEGY.corrPenalty > 0 && scored.length > STRATEGY.equityTopN) {
+    picks = [];
+    const remaining = scored.slice();
+    while (picks.length < STRATEGY.equityTopN && remaining.length) {
+      let bestIdx = 0, bestAdj = -Infinity;
+      for (let i = 0; i < remaining.length; i++) {
+        const c = remaining[i];
+        let worstCorr = 0;
+        for (const p of picks) {
+          const cr = correlation(retsOf(c.symbol), retsOf(p.symbol));
+          if (cr != null && cr > worstCorr) worstCorr = cr;
+        }
+        const pen = STRATEGY.corrPenalty * Math.max(0, worstCorr - STRATEGY.corrThreshold) * 100;
+        const adj = c.score - pen;
+        if (adj > bestAdj) { bestAdj = adj; bestIdx = i; }
+      }
+      picks.push(remaining[bestIdx]);
+      remaining.splice(bestIdx, 1);
+    }
+  } else {
+    picks = scored.slice(0, STRATEGY.equityTopN);
+  }
+
+  // ---- Rank hysteresis: keep incumbents inside the buffer zone -------------
+  // Measured churn without this: 634% annualized turnover, AMD in/out 4x in 10
+  // weeks. An incumbent only loses its seat if it drops out of topN+buffer;
+  // otherwise it displaces the weakest NEW name. Pure friction reduction.
+  if (STRATEGY.rankBuffer > 0 && incumbents.size) {
+    const bufferZone = scored.slice(0, STRATEGY.equityTopN + STRATEGY.rankBuffer);
+    const bufferSyms = new Set(bufferZone.map((s) => s.symbol));
+    const pickSyms = new Set(picks.map((p) => p.symbol));
+    // Incumbents still ranked inside the buffer but not currently picked.
+    const keepers = bufferZone.filter((s) => incumbents.has(s.symbol) && !pickSyms.has(s.symbol));
+    for (const k of keepers) {
+      // Displace the lowest-scored NON-incumbent pick (never evict another incumbent).
+      let worstIdx = -1, worstScore = Infinity;
+      for (let i = 0; i < picks.length; i++) {
+        if (incumbents.has(picks[i].symbol)) continue;
+        if (picks[i].score < worstScore) { worstScore = picks[i].score; worstIdx = i; }
+      }
+      if (worstIdx >= 0 && k.score > worstScore - 100) picks[worstIdx] = k;
+    }
+  }
 
   // ---- Compute weights inside the equity sleeve --------------------------
   const sleeveWeights = computeSleeveWeights(picks, equityWeight);

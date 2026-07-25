@@ -1,0 +1,58 @@
+{
+  "dayKey": "2026-07-25",
+  "asOfLocal": "Sat, Jul 25 2026 — WEEKLY · radar goes AMBER, leadership leaves semis, enhancement A/B fails",
+  "author": "claude (chat) · weekly",
+  "summary": "THREE THINGS MATTER THIS WEEK. (1) CRASH RADAR FLIPPED AMBER (26) for the first time — action is TIGHTEN: no new buys, obey tripwires, keep the full cash+gold sleeve. Drivers: SMH broke BELOW its 50d (still above 200d), HYG still under its 200d (red, credit stress), and book drawdown deepened to -18.7% (amber rung). Crucially still zero per-holding regime breaks — every name has 30d Sharpe z > -0.75 and trend > 45. (2) LEADERSHIP LEFT SEMIS. Cybersecurity now reigns BOTH horizons (mid 89 / long 90, +11.4% 1m) while Memory/HBM fell to 74/88 with 1m -11.6%. The book is 8 semis in a market that has rotated to cyber — that is the real reason for the drawdown, not a broken thesis. Every single one of the 8 holdings is now 'UPTREND with ADX FALLING' — uniform deceleration, no name broken. (3) July 20 rebalance: LRCX back IN, AMD OUT (AMD's 4th round-trip). Portfolio $1,218.17, +4.74% since May 9 inception, maxDD -18.7%, Sharpe 0.62. Equity curve whipsawed: $1,272 (Jul 13) → $1,131 (Jul 20) → $1,218 (Jul 25). CODE AUDIT: measured 634% annualized turnover in the live book (AMD in/out 4x in 10 weeks). Built and A/B tested three profitability enhancements (rank hysteresis, correlation-aware selection, radar-scaled exposure) over 2024-2026, 133 weekly rebalances, net of 10/25/50bps friction. ALL THREE LOST — baseline +566% beat hysteresis +441%, correlation +473%, radar +442%, all-three +343%, and won at every friction level. Shipped DISABLED with the results documented in code. Honest caveat: the test window contains no true bear market, so it is structurally biased against defensive measures.",
+  "tickers": {
+    "RADAR": {
+      "verdict": "HOLD",
+      "headline": "AMBER 26 — first non-green reading. Tighten, don't panic.",
+      "narrative": "Crash radar: 26/100 AMBER. Red flag is credit (HYG below its 200d). Amber flags: SMH lost its 50d, book DD -18.7%. Green across VIX (16.9, term structure 0.87 steep contango), breadth 61%, yen calm, rates +9bp, curve +0.85%. Action per the ladder: NO new buys, obey tripwires strictly, keep the full 10% cash + 5% gold sleeve, re-check mid-week. This is not the ORANGE/RED de-risking zone — that starts at 40."
+    },
+    "BOOK_STATE": {
+      "verdict": "HOLD",
+      "headline": "All 8 holdings UPTREND with ADX FALLING — uniform deceleration, zero breaks.",
+      "narrative": "Weekly ADX on every holding: MKSI 44.9, LRCX 42.5, STX 46.6, UMC 53.5, WDC 54.1, INTC 46.1, LITE 43.8, MU 51.2 — all still in uptrend, all with ADX falling. Not one name has flipped to DOWNTREND. Tripwire check is clean: no EXIT, no TRIM, no WEAK (LITE recovered from last week's WEAK — trend 48→68, 30d z -1.09→-0.14, 1m +0.7% while the rest of the book fell 11-24%). This is textbook late-stage deceleration inside intact structures."
+    },
+    "LRCX": {
+      "verdict": "BUY",
+      "headline": "Back IN on the Jul 20 rebalance — but weaker than the AMD it replaced.",
+      "narrative": "LRCX re-entered at 11.88% (~$145), displacing AMD. Honest flag: LRCX is weaker than AMD on every current metric — trend 55 vs 75, 30d Sharpe z -0.34 vs +0.32, 1m -13.9% vs +3.8%, edge 55 vs 66. The 252-day Sortino ranker is backward-looking, so it rotated INTO the weaker name. If following mechanically, buy it; if you value the tripwire logic over the rank, AMD is the better hold and this swap is skippable."
+    },
+    "AMD": {
+      "verdict": "HOLD",
+      "headline": "DROPPED again (4th round-trip) — yet it is the strongest name in the book.",
+      "narrative": "AMD exits the strategy for the fourth time since May. But it currently has the BEST metrics of any candidate: trend 75, 30d Sharpe z +0.32, edge 66, 1m +3.8% (the only holding that is up on the month, vs -11% to -24% for the rest), 3m +77.8%. RSI 54, z50 +0.82σ — clean, not extended. My read: hold your AMD. The mechanical rotation is churning a strong name out for a weaker one, and this exact pattern (AMD in/out 4x) is the churn the turnover audit flagged."
+    },
+    "CYBER_ROTATION": {
+      "verdict": "BUY",
+      "headline": "Cybersecurity reigns BOTH horizons (89/90) — the book owns none of it.",
+      "narrative": "Cybersecurity & Identity is now the reigning theme on BOTH the medium (89) and long (90) horizons, +11.4% 1m — the only major theme with a positive month. Memory/HBM, the book's core, fell to 74/88 with 1m -11.6%. This is the cleanest explanation for the drawdown: the book is concentrated in the theme money left, not in the theme money went to. The Sortino ranker will only rotate in once cyber names build 12-month track records. If you want tactical exposure now, that is an off-strategy decision — NET remains the cleanest entry of the cyber complex."
+    },
+    "MKSI": {
+      "verdict": "HOLD",
+      "headline": "Top weight, 1m -11.3% but 3m +24% — decelerating, not broken (trend 61).",
+      "narrative": "13.25% top weight (~$161). Trend 61, 30d z +0.18σ, RSI 47, z50 -0.07σ — dead neutral, no tripwire. ADX 44.9 falling. Holding through the deceleration; the tripwire (30d z ≤ -0.75 or trend ≤ 45) is the objective exit, and it is not close."
+    },
+    "UMC": {
+      "verdict": "HOLD",
+      "headline": "Gave back hard (1m -20.3%) but 3m still +64% and 30d z positive (+0.21σ).",
+      "narrative": "The former star cooled sharply — 1m -20.3%, RSI 43, z50 -0.38σ. But 30d Sharpe regime z is still POSITIVE (+0.21σ) and trend 55, so no break. ADX 53.5 falling. This is giving back froth from a +186% 3-month run, which is normal, not thesis damage."
+    },
+    "INTC": {
+      "verdict": "HOLD",
+      "headline": "Worst 1m in the book (-24.2%), z50 -1.38σ — closest to the WEAK line but not there.",
+      "narrative": "Trend 49 (WEAK threshold is 45), 30d z -0.21σ, RSI 42, z50 -1.38σ. The prior TRIM advice (July 1) has paid — it is down 24% on the month since. What remains is the runner. If trend slips under 45 or 30d z under -0.75σ it becomes the first sale under an ORANGE radar. Watch it weekly."
+    },
+    "LITE": {
+      "verdict": "HOLD",
+      "headline": "Full recovery from last week's WEAK: trend 48→68, only holding flat on the month.",
+      "narrative": "Last week LITE was the book's WEAK tripwire (trend 48, 30d z -1.09σ, 1m -19.2%). One week later: trend 68, 30d z -0.14σ, 1m +0.7%, RSI 53. It reverted exactly as the mean-reversion argument predicted, which is why the discipline is to not sell at -2.4σ. Concrete evidence for holding oversold names inside intact regimes."
+    },
+    "CODE_AUDIT": {
+      "verdict": "HOLD",
+      "headline": "3 profitability enhancements built, A/B tested, ALL REJECTED — shipped disabled.",
+      "narrative": "Measured 634% annualized turnover live (AMD 4 round-trips). Built rank hysteresis (buffer zone), correlation-aware greedy selection, and radar-scaled exposure; A/B tested over 2024-01-01..2026-07 (133 weekly rebalances) net of 10/25/50bps friction. Results — baseline +566% gross / DD -22.3% / Sharpe 2.17 / net@50bps $120,253 WINS. Hysteresis +441%, DD WORSE at -25.4%, cut turnover 761→422%/yr. Correlation +473%, DD better at -21.2% (only variant to improve DD). Radar exposure +442%, DD unchanged, vol 37→35. All three combined +343%. Baseline won at every friction level, so all three are shipped DISABLED behind flags with the results documented in backtest.ts. Interpretation: in a relentless momentum regime, fast rotation into the newest leader IS the alpha — damping it costs more than the friction saved. Caveat that matters: the window has no true bear market, so it is structurally biased against defensive measures. The correlation penalty is the most defensible and should be re-tested before the next real drawdown regime."
+    }
+  }
+}
