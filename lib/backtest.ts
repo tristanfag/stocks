@@ -1,5 +1,6 @@
 import { getHistory, type Candle } from "./yahoo";
 import { TREND_GRAPH } from "./trends";
+import { ETF_UNIVERSE } from "./universe-etf";
 import { sma, returns, sharpe, sortino, omega, annualisedVol, pctChange, mean, correlation } from "./stats";
 
 // ---- Strategy parameters --------------------------------------------------
@@ -62,6 +63,13 @@ export const STRATEGY = {
   corrThreshold: 0.75,
   corrWindow: 90,
   radarScaledExposure: false,
+  /**
+   * Execution lag in calendar days. The signal is computed from data up to the
+   * rebalance date, but the trade fills `executionLagDays` later — you cannot
+   * see a close and simultaneously trade at it. 1 = signal at T close, fill at
+   * T+1. Set 0 only for idealised comparisons.
+   */
+  executionLagDays: 1,
 };
 
 /**
@@ -410,10 +418,21 @@ export async function computeTodayAllocations(opts: { capital: number; forceCryp
  * experimental endpoint to A/B-test alternative configs without disturbing
  * the cached headline backtest.
  */
-export async function runOneOff(opts: { horizon: Horizon; ranker?: typeof STRATEGY.ranker }): Promise<BacktestRun> {
-  const equitySet = new Set<string>();
-  for (const node of Object.values(TREND_GRAPH)) for (const s of node.symbols) equitySet.add(s);
-  const equities = Array.from(equitySet);
+export async function runOneOff(opts: {
+  horizon: Horizon;
+  ranker?: typeof STRATEGY.ranker;
+  /** "themes" = the 2026-authored theme graph (survivorship-biased for old
+   *  windows). "etf" = structural, pre-2018, bias-free universe. */
+  universe?: "themes" | "etf";
+}): Promise<BacktestRun> {
+  let equities: string[];
+  if (opts.universe === "etf") {
+    equities = ETF_UNIVERSE.slice();
+  } else {
+    const equitySet = new Set<string>();
+    for (const node of Object.values(TREND_GRAPH)) for (const s of node.symbols) equitySet.add(s);
+    equities = Array.from(equitySet);
+  }
   const allSymbols = Array.from(new Set([...equities, ...MACRO_SYMBOLS]));
   const histPairs = await Promise.all(allSymbols.map(async (s) => [s, await getHistory(s, HISTORY_DEPTH)] as const));
   const histories = new Map<string, Candle[]>(histPairs);
@@ -466,14 +485,21 @@ async function simulate(
   for (const dt of rebalanceDates) {
     const dtMs = dt.getTime();
 
-    // mark-to-market
+    // Execution lag: the SIGNAL uses data <= dtMs, but the trade fills at
+    // fillMs. The portfolio must ALSO be marked at fillMs — the old book is
+    // still held over dtMs..fillMs. Marking at dtMs while filling at fillMs
+    // silently throws away that day's return on every single rebalance, which
+    // compounds into a large phantom loss.
+    const fillMs = dtMs + STRATEGY.executionLagDays * 24 * 3600 * 1000;
+
+    // mark-to-market at the FILL date
     let portValue = cash;
     for (const [sym, shares] of Object.entries(holdings)) {
-      const px = priceAtOrBefore(histories.get(sym) ?? [], dtMs) ?? 0;
+      const px = priceAtOrBefore(histories.get(sym) ?? [], fillMs) ?? 0;
       portValue += shares * px;
     }
-    if (cash > 0 && prevDateMs < dtMs) {
-      const days = (dtMs - prevDateMs) / (24 * 3600 * 1000);
+    if (cash > 0 && prevDateMs < fillMs) {
+      const days = (fillMs - prevDateMs) / (24 * 3600 * 1000);
       portValue += cash * (STRATEGY.cashAnnualYield * days / 365);
     }
 
@@ -482,19 +508,19 @@ async function simulate(
     const incumbents = new Set(Object.keys(holdings));
     const target = applyUserOverride(horizon, computeAllocation(dtMs, histories, equities, cfg.rankWindow, ranker, false, incumbents));
 
-    // re-balance
+    // re-balance — signal from dtMs, fill at fillMs (computed above)
     const newHoldings: Record<string, number> = {};
     let cashAlloc = 0;
     for (const [sym, w] of Object.entries(target.weights)) {
       const dollars = portValue * w;
       if (sym === "CASH") { cashAlloc += dollars; continue; }
-      const px = priceAtOrBefore(histories.get(sym) ?? [], dtMs);
+      const px = priceAtOrBefore(histories.get(sym) ?? [], fillMs);
       if (!px || px <= 0) { cashAlloc += dollars; continue; }
       newHoldings[sym] = dollars / px;
     }
     cash = cashAlloc;
     holdings = newHoldings;
-    prevDateMs = dtMs;
+    prevDateMs = fillMs;
 
     const spyPx = priceAtOrBefore(spyHist, dtMs) ?? spyStart;
     const allCashValue = STRATEGY.startCapital * Math.pow(1 + STRATEGY.cashAnnualYield, (dtMs - startMs) / (365 * 24 * 3600 * 1000));
@@ -800,7 +826,19 @@ function computeAllocation(
   if (picks.length === 0) {
     weights["CASH"] = (weights["CASH"] ?? 0) + equityWeight;
   } else {
-    for (const p of picks) weights[p.symbol] = sleeveWeights[p.symbol] ?? 0;
+    // ADDITIVE, not assignment. If a sleeve instrument (GLD / BTC-USD /
+    // ETH-USD) is also an equity candidate, plain assignment silently
+    // DESTROYED the sleeve's allocation — that capital vanished from the book
+    // on every rebalance and compounded into a catastrophic phantom loss.
+    for (const p of picks) weights[p.symbol] = (weights[p.symbol] ?? 0) + (sleeveWeights[p.symbol] ?? 0);
+  }
+
+  // Safety net: weights must account for 100% of capital. Any residual from a
+  // capping edge case or a future refactor goes to CASH instead of evaporating.
+  {
+    const total = Object.values(weights).reduce((a, w) => a + w, 0);
+    const residual = 1 - total;
+    if (Math.abs(residual) > 1e-9) weights["CASH"] = (weights["CASH"] ?? 0) + residual;
   }
 
   const classWeights: Record<AssetClass, number> = {

@@ -60,7 +60,8 @@ export async function GET(req: Request) {
       const v = variantSet[vi];
       Object.assign(STRATEGY, original, { startDate, startCapital }, v.patch);
       const [hz, rk] = mode === "horizons" ? HORIZON_KEYS[vi] : [horizon, ranker];
-      const run = await runOneOff({ horizon: hz, ranker: rk });
+      const universe = (url.searchParams.get("universe") ?? "themes") as "themes" | "etf";
+      const run = await runOneOff({ horizon: hz, ranker: rk, universe });
       // one-way turnover across the rebalance path
       let turn = 0;
       for (let i = 1; i < run.allocations.length; i++) {
@@ -94,7 +95,13 @@ export async function GET(req: Request) {
         for (const pt of pts) {
           const ym = pt.date.slice(0, 7);
           const q = ym.slice(0, 4) + "-Q" + (Math.floor(Number(ym.slice(5, 7) as any) / 3.01) + 1);
-          if (!seen.has(q)) { seen.add(q); curve.push({ q, date: pt.date, value: Math.round(pt.value), spy: Math.round(pt.spyValue) }); }
+          if (!seen.has(q)) {
+            seen.add(q);
+            const al = run.allocations.find((a) => a.date === pt.date);
+            const holds = al ? Object.entries(al.weights).filter(([, w]) => w > 0.001)
+              .sort((a, b) => b[1] - a[1]).map(([sy, w]) => sy + ":" + (w * 100).toFixed(0)).join(" ") : "";
+            curve.push({ q, date: pt.date, value: Math.round(pt.value), spy: Math.round(pt.spyValue), holds });
+          }
         }
         // peak-to-trough within each calendar year
         const yrs: Record<string, { peak: number; dd: number; start: number; end: number }> = {};
