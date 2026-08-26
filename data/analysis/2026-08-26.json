@@ -1,0 +1,63 @@
+{
+  "dayKey": "2026-08-26",
+  "asOfLocal": "Wed, Aug 26 2026 — WEEKLY · RADAR ORANGE, first de-risk directive",
+  "author": "claude (chat) · weekly",
+  "summary": "FIRST DE-RISK WEEK. The Crash Radar hit ORANGE (40) — up from AMBER 26 four weeks ago and GREEN before that. Action per the ladder: cut the equity sleeve to ~60%, selling tripwire names first. Five flags now firing: HYG below its 200d (RED, credit stress, persistent for six weeks), gold outperforming SPY by +10.6% over 21d (RED, flight to safety), book drawdown -22.1% (RED), SMH below its 50d (amber), and a yen carry unwind at -2.7%/21d (amber, NEW this week — the Aug-2024 channel reopening). Model book -6.81% since May 9 inception with Sharpe now NEGATIVE at -0.26. THEMES ROTATED AGAIN AND SEMIS FELL OUT OF THE TOP SIX ENTIRELY: AI Application & Productivity now reigns both horizons (90/91, +16.5% 1m), Stablecoins & Payment Rails #2 (89, +15.8%). Memory/HBM, Lithography and Foundries — the entire book — are no longer top-tier themes. This is the third leadership rotation since inception (semis -> cyber -> AI apps) and the book has been on the wrong side of the last two. ADX: zero new weekly buys, all book names UPTREND with ADX FALLING except INTC which flipped to DOWNTREND. Tripwires WEAK: MKSI (trend 36, one point from EXIT), WDC (45), INTC (44), AMAT (46), AAOI (37). Model rebalance added AMAT/LRCX/AAOI plus a crypto sleeve (BTC 10.5%, ETH 4.5% — BTC reclaimed its 200d) and DROPPED UMC and ASML.",
+  "tickers": {
+    "RADAR": {
+      "verdict": "SELL",
+      "headline": "ORANGE 40 — de-risk directive is live. Cut equity to ~60%.",
+      "narrative": "Radar climbed GREEN 19 (Jul 8) -> AMBER 26 (Jul 25) -> ORANGE 40 (Aug 26). Three RED flags: credit (HYG under 200d, six weeks running), flight-to-safety (gold beating SPY by 10.6% on 21d), book drawdown -22.1%. Two AMBER: SMH under its 50d, and a NEW yen carry unwind (-2.7%/21d) — that is the Aug-2024 transmission channel reopening and it was green last week. The instruction is explicit: cut the equity sleeve to ~60%, selling EXIT/TRIM/WEAK tripwire names first, largest losers-in-regime first."
+    },
+    "MKSI": {
+      "verdict": "SELL",
+      "headline": "SELL ALL — trend 36 (one point from EXIT), dropped from the model book.",
+      "narrative": "The clearest sale in the book. Trend score 36 — the EXIT tripwire is 35. 30d regime z -1.03σ, 1m -14.3%, 3m -19.0%, z50 -1.47σ, RSI 38, edge collapsed to 42. It was ALSO dropped from the strategy book at the Aug 24 rebalance. Every independent signal agrees: out-of-model, WEAK tripwire, worst trend of anything held. This was the top weight for months; that era is over."
+    },
+    "INTC": {
+      "verdict": "SELL",
+      "headline": "SELL ALL — ADX flipped to DOWNTREND, 3m -29.2%.",
+      "narrative": "The only book name whose weekly ADX is now DOWNTREND (-DI above +DI, ADX 33.1 falling). Trend 44 (WEAK), 30d z -0.80σ, 3m -29.2% — the worst 3-month figure in the book. I flagged INTC for trimming on July 1 and again July 25; it has fallen every week since. Under an ORANGE radar with a DOWNTREND ADX, the remaining position goes."
+    },
+    "WDC": {
+      "verdict": "SELL",
+      "headline": "SELL ALL — WEAK tripwire (trend 45), 3m -14.1%.",
+      "narrative": "Trend 45 sits exactly on the WEAK line, 30d regime z -0.79σ, z50 -1.13σ, 1m -9.5%, 3m -14.1%. Still technically in the model book, but the ORANGE directive says sell WEAK names first and WDC is the third-weakest thing held. Selling it completes the move to 60% equity."
+    },
+    "LITE": {
+      "verdict": "HOLD",
+      "headline": "The book's star — +24.4% 1m, trend 82, edge 66. Keep every share.",
+      "narrative": "Extraordinary reversal. In July LITE was the WEAK tripwire at trend 48 and -19.2% on the month; today it is trend 82, 30d regime z +0.05σ (the ONLY non-negative regime z in the book), 1m +24.4%, RSI 54, edge 66 — the strongest name held by a wide margin. Concrete proof of the discipline: selling it at -2.4σ in July would have been the single worst trade of the year."
+    },
+    "MU": {
+      "verdict": "HOLD",
+      "headline": "Best trend in the semi complex (67) and positive 3m — keep.",
+      "narrative": "Trend 67, 30d z -0.42σ, 1m +3.6%, 3m +4.1%, edge 61. One of only three holdings with a positive 1-month return. Still in the model book. The HBM thesis has not been invalidated by the theme rotation — MU is simply no longer in a reigning theme, which is different from being broken."
+    },
+    "LRCX": {
+      "verdict": "HOLD",
+      "headline": "+7.9% 1m, trend 61, still in the model book.",
+      "narrative": "Trend 61, edge 58, 1m +7.9% — second-best monthly return in the book. 30d z -0.66σ is soft but well clear of the -0.75σ WEAK line. Keep."
+    },
+    "STX": {
+      "verdict": "HOLD",
+      "headline": "Flat and stable (trend 54) — no reason to sell it before the WEAK names.",
+      "narrative": "Trend 54, 30d z -0.43σ, 1m +0.6%, 3m -2.8%, edge 55. Unremarkable but healthy. In the model book. Under the ORANGE priority rule the WEAK names go first; STX survives this cut."
+    },
+    "UMC": {
+      "verdict": "HOLD",
+      "headline": "Dropped from the model book but tripwire is OK (trend 57) — borderline keep.",
+      "narrative": "UMC exited the strategy book at the Aug 24 rebalance, but its own metrics are fine: trend 57, 30d z -0.69σ, 1m +2.7%, edge 57. Strict strategy-following says sell it; the tripwire logic says it is healthier than three names ahead of it in the sell queue. I am keeping it because selling MKSI/INTC/WDC already achieves the 60% equity target, and extra trades on a small account cost more than the tracking error."
+    },
+    "THEME_ROTATION": {
+      "verdict": "HOLD",
+      "headline": "Semis are OUT of the top six themes entirely — third rotation since inception.",
+      "narrative": "AI Application & Productivity reigns both horizons (90/91, +16.5% 1m); Stablecoins & Payment Rails is #2 (89, +15.8%). Memory/HBM, Lithography and Foundries have all dropped out of the top six. The sequence since May: semis -> cybersecurity -> AI apps. The 252-day Sortino ranker cannot follow rotations this fast — it needs a year of track record before a new theme can enter. That structural lag is the honest explanation for -6.81% while SPY is up. It is a known design limitation, not a malfunction."
+    },
+    "CRYPTO_SLEEVE": {
+      "verdict": "BUY",
+      "headline": "Crypto sleeve turned ON — BTC reclaimed its 200d (BTC 10.5% / ETH 4.5%).",
+      "narrative": "For the first time since inception the crypto condition passed (BTC above its 200d SMA AND positive 3-month return), so the model allocates 15% to crypto. Note the tension: the radar is ORANGE and simultaneously wants LESS risk. Given that conflict I am NOT recommending the crypto buy this week — de-risking takes precedence over adding a new volatile sleeve. Revisit if the radar returns to GREEN with BTC still above its 200d."
+    }
+  }
+}
