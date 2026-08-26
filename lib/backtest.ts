@@ -8,7 +8,16 @@ export const STRATEGY = {
   startDate: "2026-05-09",
   startCapital: 1_163,
   rebalanceFrequencyDays: 21,            // ~monthly
-  equityTopN: 8,
+  // Concentration sweep 2026-08-26 over 2024-01..2026-08, net of friction:
+  //   topN  3: +1012% DD -41.0 Sharpe 1.86 | topN  4: +873% DD -37.6 Sharpe 1.83
+  //   topN  5: + 941% DD -30.9 Sharpe 2.10 <-- best risk-adjusted
+  //   topN  6: + 534% DD -28.1 Sharpe 1.90 | topN  8: +492% DD -22.3 Sharpe 1.99
+  //   topN 10: + 370% DD -23.5 Sharpe 1.84
+  // Confirmed on 3 horizons: topN=5 had the best Sharpe on 2 of 3 and roughly
+  // doubled gross return vs topN=8 on all. Cost: deeper drawdown on the weekly
+  // variants (-31% vs -22%). Caveat: window has no true bear market, and
+  // concentration is structurally flattered in trending regimes.
+  equityTopN: 5,
   spyTrendLookback: 200,                 // SMA window
   cryptoTrendLookback: 200,
   cryptoMomentumLookback: 63,            // ~3 months
@@ -26,7 +35,7 @@ export const STRATEGY = {
   /** Weighting inside the equity sleeve. "invvol" = inverse-volatility (risk parity). */
   weighting: "invvol" as "equal" | "invvol" | "score",
   /** Weighting cap so a single name can't blow past this fraction of equity sleeve. */
-  weightCap: 0.25,
+  weightCap: 0.30,
   /** Window (trading days) used to compute volatility for inverse-vol weighting. */
   volWindow: 90,
 

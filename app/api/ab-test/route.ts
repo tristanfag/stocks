@@ -21,6 +21,16 @@ const VARIANTS: Variant[] = [
   { name: "ALL enhancements",           patch: { rankBuffer: 4, corrPenalty: 25, radarScaledExposure: true } },
 ];
 
+/** Concentration sweep: how many equity holdings is optimal? */
+const TOPN_VARIANTS: Variant[] = [
+  { name: "topN = 3 (very concentrated)", patch: { equityTopN: 3, weightCap: 0.40 } },
+  { name: "topN = 4",                     patch: { equityTopN: 4, weightCap: 0.35 } },
+  { name: "topN = 5 (requested)",         patch: { equityTopN: 5, weightCap: 0.30 } },
+  { name: "topN = 6",                     patch: { equityTopN: 6, weightCap: 0.28 } },
+  { name: "topN = 8 (current)",           patch: { equityTopN: 8, weightCap: 0.25 } },
+  { name: "topN = 10 (diversified)",      patch: { equityTopN: 10, weightCap: 0.20 } },
+];
+
 export async function GET(req: Request) {
   const url = new URL(req.url);
   const horizon = (url.searchParams.get("horizon") ?? "longWeeklySortino") as Horizon;
@@ -29,13 +39,28 @@ export async function GET(req: Request) {
   // something (~120 weekly rebalances vs ~11 since live inception).
   const startDate = url.searchParams.get("start") ?? "2024-01-01";
   const startCapital = Number(url.searchParams.get("capital") ?? "20000");
+  const mode = url.searchParams.get("mode") ?? "enhancements";
+  const HORIZON_VARIANTS: Variant[] = [
+    { name: "Short (1m sig, weekly)", patch: {} },
+    { name: "Medium (3m sig, monthly)", patch: {} },
+    { name: "Long (12m sig, monthly)", patch: {} },
+    { name: "Long weekly (12m, weekly)", patch: {} },
+    { name: "Long Sortino weekly", patch: {} },
+  ];
+  const HORIZON_KEYS: Array<[Horizon, typeof STRATEGY.ranker]> = [
+    ["short", "blended"], ["medium", "blended"], ["long", "blended"],
+    ["longWeekly", "blended"], ["longWeeklySortino", "sortino"],
+  ];
+  const variantSet = mode === "topn" ? TOPN_VARIANTS : mode === "horizons" ? HORIZON_VARIANTS : VARIANTS;
 
   const original = { ...STRATEGY };
   const results: any[] = [];
   try {
-    for (const v of VARIANTS) {
+    for (let vi = 0; vi < variantSet.length; vi++) {
+      const v = variantSet[vi];
       Object.assign(STRATEGY, original, { startDate, startCapital }, v.patch);
-      const run = await runOneOff({ horizon, ranker });
+      const [hz, rk] = mode === "horizons" ? HORIZON_KEYS[vi] : [horizon, ranker];
+      const run = await runOneOff({ horizon: hz, ranker: rk });
       // one-way turnover across the rebalance path
       let turn = 0;
       for (let i = 1; i < run.allocations.length; i++) {
