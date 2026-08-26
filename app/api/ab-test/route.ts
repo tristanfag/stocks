@@ -84,8 +84,37 @@ export async function GET(req: Request) {
           cagrPct: Number(((Math.pow(Math.max(net, 1e-9), 1 / Math.max(years, 1e-9)) - 1) * 100).toFixed(1)),
         };
       };
+      // Optional: yearly equity-curve samples + worst calendar-year drawdowns,
+      // so extraordinary summary numbers can be sanity-checked against crisis periods.
+      let curve: any = undefined, byYear: any = undefined;
+      if (url.searchParams.get("curve") === "1") {
+        const pts = run.equityCurve;
+        const seen = new Set<string>();
+        curve = [];
+        for (const pt of pts) {
+          const ym = pt.date.slice(0, 7);
+          const q = ym.slice(0, 4) + "-Q" + (Math.floor(Number(ym.slice(5, 7) as any) / 3.01) + 1);
+          if (!seen.has(q)) { seen.add(q); curve.push({ q, date: pt.date, value: Math.round(pt.value), spy: Math.round(pt.spyValue) }); }
+        }
+        // peak-to-trough within each calendar year
+        const yrs: Record<string, { peak: number; dd: number; start: number; end: number }> = {};
+        for (const pt of pts) {
+          const y = pt.date.slice(0, 4);
+          if (!yrs[y]) yrs[y] = { peak: pt.value, dd: 0, start: pt.value, end: pt.value };
+          const o = yrs[y];
+          if (pt.value > o.peak) o.peak = pt.value;
+          o.dd = Math.min(o.dd, (pt.value - o.peak) / o.peak);
+          o.end = pt.value;
+        }
+        byYear = Object.entries(yrs).map(([y, o]) => ({
+          year: y,
+          ret: Number(((o.end / o.start - 1) * 100).toFixed(1)),
+          worstDD: Number((o.dd * 100).toFixed(1)),
+        }));
+      }
       results.push({
         variant: v.name,
+        curve, byYear,
         endValue: Number(run.summary.endValue.toFixed(2)),
         totalReturnPct: Number(run.summary.totalReturnPct.toFixed(2)),
         net10bps: netOf(10),

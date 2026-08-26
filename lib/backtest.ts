@@ -64,6 +64,13 @@ export const STRATEGY = {
   radarScaledExposure: false,
 };
 
+/**
+ * How much daily history to pull for backtests. 10y so runs can start as far
+ * back as ~2019 and still have the 252-day ranking lookback available before
+ * the first rebalance.
+ */
+const HISTORY_DEPTH = "10y" as const;
+
 // SMH/HYG/LQD/^TNX power the point-in-time stress index (radar-scaled exposure).
 const MACRO_SYMBOLS = ["SPY", "^VIX", "GLD", "BTC-USD", "ETH-USD", "SMH", "HYG", "LQD", "^TNX"];
 
@@ -312,7 +319,7 @@ export async function buildBacktest(force = false): Promise<BacktestReport> {
 
   // Fetch 5y daily history for everything (cached after first call).
   const histPairs = await Promise.all(
-    allSymbols.map(async (s) => [s, await getHistory(s, "5y")] as const),
+    allSymbols.map(async (s) => [s, await getHistory(s, HISTORY_DEPTH)] as const),
   );
   const histories = new Map<string, Candle[]>(histPairs);
 
@@ -374,7 +381,7 @@ export async function computeTodayAllocations(opts: { capital: number; forceCryp
   for (const node of Object.values(TREND_GRAPH)) for (const s of node.symbols) equitySet.add(s);
   const equities = Array.from(equitySet);
   const allSymbols = Array.from(new Set([...equities, ...MACRO_SYMBOLS]));
-  const histPairs = await Promise.all(allSymbols.map(async (s) => [s, await getHistory(s, "5y")] as const));
+  const histPairs = await Promise.all(allSymbols.map(async (s) => [s, await getHistory(s, HISTORY_DEPTH)] as const));
   const histories = new Map<string, Candle[]>(histPairs);
   const today = new Date();
   const todayMs = today.getTime();
@@ -408,7 +415,7 @@ export async function runOneOff(opts: { horizon: Horizon; ranker?: typeof STRATE
   for (const node of Object.values(TREND_GRAPH)) for (const s of node.symbols) equitySet.add(s);
   const equities = Array.from(equitySet);
   const allSymbols = Array.from(new Set([...equities, ...MACRO_SYMBOLS]));
-  const histPairs = await Promise.all(allSymbols.map(async (s) => [s, await getHistory(s, "5y")] as const));
+  const histPairs = await Promise.all(allSymbols.map(async (s) => [s, await getHistory(s, HISTORY_DEPTH)] as const));
   const histories = new Map<string, Candle[]>(histPairs);
   return simulate(opts.horizon, histories, equities, new Date(), opts.ranker);
 }
